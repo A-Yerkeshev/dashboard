@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Post from './Post';
 
 function Posts() {
 
@@ -16,12 +17,24 @@ function Posts() {
 
   axios.get(`https://jsonplaceholder.typicode.com/posts`)
     .then((response) => {
-      console.log(response.data);
+      setState({
+        posts: response.data
+      })
     });
+
+  const displayPosts = () => {
+    let result = [];
+
+    state.posts.forEach((post) => {
+      result.push(<Post key={ post.id } post={ post }/>)
+    })
+
+    return result;
+  }
 
   return (
     <div>
-      <h2>Posts go here</h2>
+      { displayPosts() }
     </div>
   );
 }
