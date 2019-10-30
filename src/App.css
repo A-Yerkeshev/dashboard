@@ -45,6 +45,18 @@ header {
 
 .post {
   background-color: white;
+  border: var(--dark-grey) 5px double;
+  padding: 5px;
+}
+
+.post > h3 {
+  border-bottom: var(--dark-grey) 1px double;
+  font-style: italic;
+}
+
+.post > p {
+  text-indent: 1em;
+  font-style: italic;
 }
 
 footer {

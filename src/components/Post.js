@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 
 function Post(props) {
-  const title = props.post.title;
-  const body = props.post.body;
+  // Capitalize title and body of post
+  const title = props.post.title.charAt(0).toUpperCase() + props.post.title.slice(1)
+  const body = props.post.body.charAt(0).toUpperCase() + props.post.body.slice(1)
 
   return (
     <div className="post">
-      <b>{ title }</b>
-      <em>{ body }</em>
+      <h3>{ title }</h3><br/>
+      <p>{ body }</p><br/>
+
     </div>
   );
 }
