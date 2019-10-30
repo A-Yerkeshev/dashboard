@@ -5,14 +5,13 @@ import './App.css';
 import Posts from './components/Posts'
 
 const header = () => {
-  return <header>I am a header</header>
+  return <header><h2>Dashboard App</h2></header>
 }
 
 function App() {
   return (
-    <div className="App">
+    <div className="container">
       { header() }
-      <h1>Dashboard application</h1>
       <Posts/>
     </div>
   );
