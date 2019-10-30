@@ -33,7 +33,7 @@ function Posts() {
   }
 
   return (
-    <div>
+    <div className="container posts-container">
       { displayPosts() }
     </div>
   );

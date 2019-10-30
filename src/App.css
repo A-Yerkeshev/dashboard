@@ -38,6 +38,15 @@ header {
   display: grid;
 }
 
+.posts-container {
+  padding: 2%;
+  grid-gap: 5px;
+}
+
+.post {
+  background-color: white;
+}
+
 footer {
   padding: 10px;
   background-color: var(--dark-grey);

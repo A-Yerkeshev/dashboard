@@ -5,7 +5,7 @@ function Post(props) {
   const body = props.post.body;
 
   return (
-    <div>
+    <div className="post">
       <b>{ title }</b>
       <em>{ body }</em>
     </div>
