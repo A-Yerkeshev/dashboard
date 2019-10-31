@@ -8,8 +8,8 @@ function Posts() {
   });
 
   useEffect(() => {
-    // Get posts from JSONPlaceholder
-    axios.get(`https://jsonplaceholder.typicode.com/posts`)
+    // Get fist 10 posts from JSONPlaceholder
+    axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
       .then((response) => {
         setState({
           posts: response.data
