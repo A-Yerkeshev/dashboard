@@ -46,6 +46,7 @@ header {
 .post {
   background-color: white;
   padding: 5px;
+  padding-bottom: 10px;
   cursor: default;
   transition: margin 0.2s, box-shadow 0.2s
 }
@@ -64,6 +65,11 @@ header {
 .post > p {
   text-indent: 1em;
   font-style: italic;
+}
+
+.post > i {
+  margin-left: 15px;
+  cursor: pointer;
 }
 
 footer {

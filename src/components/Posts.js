@@ -4,7 +4,6 @@ import Post from './Post';
 
 function Posts() {
 
-  // Initialize component state
   const [state, setState] = useState({
     posts: []
   });
