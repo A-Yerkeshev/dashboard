@@ -67,6 +67,11 @@ header {
   font-style: italic;
 }
 
+.post > span {
+  float: right;
+  font-weight: bold;
+}
+
 .post > i {
   margin-left: 15px;
   cursor: pointer;

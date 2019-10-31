@@ -42,10 +42,16 @@ function Posts() {
   const generateRandomData = (post) => {
     const likes = Math.floor(Math.random() * 101);
     const dislikes = Math.floor(Math.random() * -101);
-    console.log(likes, dislikes);
+    const commentsNum = Math.floor(Math.random() * 101);
+
+    const minDate = new Date(2010, 0, 1);
+    const maxDate = new Date();
+    const date = new Date(minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime())).toDateString();
 
     post.likes = likes;
     post.dislikes = dislikes;
+    post.commentsNum = commentsNum;
+    post.date = date;
   }
 
   return (
