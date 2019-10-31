@@ -6,8 +6,7 @@ import Post from './Post';
 
 function Posts() {
   const [state, setState] = useState({
-    posts: [],
-    postTemplates: []
+    posts: []
   });
 
   useEffect(() => {
@@ -15,8 +14,7 @@ function Posts() {
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
       .then((response) => {
         setState({
-          posts: response.data,
-          postTemplates: makePostTemplates(response.data)
+          posts: response.data
         });
       });
   }, []);
@@ -24,12 +22,12 @@ function Posts() {
   // Load more posts when bottom of the page is reached
   let loadDozen = 2;
   const loadMorePosts = useBottomScrollListener(() => {
+    console.log('bottom hit')
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + loadDozen)
       .then((response) => {
         const posts = [...state.posts, ...response.data];
         setState({
-          posts,
-          postTemplates: makePostTemplates(posts)
+          posts
         });
         loadDozen++;
       });
@@ -39,16 +37,15 @@ function Posts() {
   const addPost = (newPost) => {
     const posts = [...state.posts, newPost];
     setState({
-      posts,
-      postTemplates: makePostTemplates(posts)
+      posts
     })
   }
 
   // Function that makes JSX templates from posts data
-  const makePostTemplates = (posts) => {
+  const displayPosts = () => {
     let result = [];
 
-    posts.forEach((post) => {
+    state.posts.forEach((post) => {
       // Generate random data for post
       generateRandomData(post);
       result.push(<Post key={ post.id } post={ post }/>);
@@ -74,8 +71,8 @@ function Posts() {
   }
 
   return (
-    <div className="container posts-container" ref={ loadMorePosts }>
-      { state.postTemplates }
+    <div className="container posts-container">
+      { displayPosts() }
     </div>
   );
 }
