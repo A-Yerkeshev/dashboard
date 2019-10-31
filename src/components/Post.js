@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function Post(props) {
   // Get props
@@ -10,8 +10,8 @@ function Post(props) {
       <h3>{ title }</h3><br/>
       <p>{ body }</p><br/>
       <i className="far fa-thumbs-up fa-2x"></i> 0
-      <i class="far fa-thumbs-down fa-2x"></i> 0
-      <i class="far fa-comment fa-2x"></i>
+      <i className="far fa-thumbs-down fa-2x"></i> 0
+      <i className="far fa-comment fa-2x"></i>
     </div>
   );
 }
