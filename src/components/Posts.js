@@ -13,6 +13,10 @@ function Posts() {
     // Get fist 10 posts from JSONPlaceholder
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
       .then((response) => {
+        // Generate random data for posts
+        response.data.forEach((post) => {
+          generateRandomData(post);
+        });
         setState({
           posts: response.data
         });
@@ -22,9 +26,12 @@ function Posts() {
   // Load more posts when bottom of the page is reached
   let loadDozen = 2;
   const loadMorePosts = useBottomScrollListener(() => {
-    console.log('bottom hit')
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + loadDozen)
       .then((response) => {
+        // Generate random data for posts
+        response.data.forEach((post) => {
+          generateRandomData(post);
+        });
         const posts = [...state.posts, ...response.data];
         setState({
           posts
@@ -46,8 +53,6 @@ function Posts() {
     let result = [];
 
     state.posts.forEach((post) => {
-      // Generate random data for post
-      generateRandomData(post);
       result.push(<Post key={ post.id } post={ post }/>);
     });
 
