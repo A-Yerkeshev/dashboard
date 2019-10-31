@@ -24,9 +24,8 @@ function Posts() {
   }, []);
 
   // Load more posts when bottom of the page is reached
-  let loadDozen = 2;
   const loadMorePosts = useBottomScrollListener(() => {
-    axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + loadDozen)
+    axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + (state.posts.length/10 + 1))
       .then((response) => {
         // Generate random data for posts
         response.data.forEach((post) => {
@@ -36,7 +35,6 @@ function Posts() {
         setState({
           posts
         });
-        loadDozen++;
       });
   });
 
