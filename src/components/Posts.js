@@ -4,17 +4,12 @@ import Post from './Post';
 
 function Posts() {
 
+  // Initialize component state
   const [state, setState] = useState({
     posts: []
   });
 
-  const addPost = (newPost) => {
-    const posts = [...state.posts, newPost];
-    setState({
-      posts
-    })
-  }
-
+  // Get posts from JSONPlaceholder
   axios.get(`https://jsonplaceholder.typicode.com/posts`)
     .then((response) => {
       setState({
@@ -22,6 +17,15 @@ function Posts() {
       })
     });
 
+  // Function to add new post
+  const addPost = (newPost) => {
+    const posts = [...state.posts, newPost];
+    setState({
+      posts
+    })
+  }
+
+  // Function that returns a JSX template from posts data
   const displayPosts = () => {
     let result = [];
 
