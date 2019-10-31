@@ -48,7 +48,8 @@ header {
   padding: 5px;
   padding-bottom: 10px;
   cursor: default;
-  transition: margin 0.2s, box-shadow 0.2s
+  transition: margin 0.2s, box-shadow 0.2s;
+  font-style: italic;
 }
 
 .post:hover {
@@ -59,12 +60,10 @@ header {
 
 .post > h3 {
   border-bottom: var(--dark-grey) 1px double;
-  font-style: italic;
 }
 
 .post > p {
   text-indent: 1em;
-  font-style: italic;
 }
 
 .post > span {
