@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+
 import Post from './Post';
 
 function Posts() {
   const [state, setState] = useState({
-    posts: []
+    posts: [],
+    postTemplates: []
   });
 
   useEffect(() => {
@@ -12,30 +15,46 @@ function Posts() {
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
       .then((response) => {
         setState({
-          posts: response.data
-        })
+          posts: response.data,
+          postTemplates: makePostTemplates(response.data)
+        });
       });
   }, []);
+
+  // Load more posts when bottom of the page is reached
+  let loadDozen = 2;
+  const loadMorePosts = useBottomScrollListener(() => {
+    axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + loadDozen)
+      .then((response) => {
+        const posts = [...state.posts, ...response.data];
+        setState({
+          posts,
+          postTemplates: makePostTemplates(posts)
+        });
+        loadDozen++;
+      });
+  });
 
   // Function to add new post
   const addPost = (newPost) => {
     const posts = [...state.posts, newPost];
     setState({
-      posts
+      posts,
+      postTemplates: makePostTemplates(posts)
     })
   }
 
-  // Function that returns a JSX template from posts data
-  const displayPosts = () => {
+  // Function that makes JSX templates from posts data
+  const makePostTemplates = (posts) => {
     let result = [];
 
-    state.posts.forEach((post) => {
+    posts.forEach((post) => {
       // Generate random data for post
       generateRandomData(post);
-      result.push(<Post key={ post.id } post={ post }/>)
-    })
+      result.push(<Post key={ post.id } post={ post }/>);
+    });
 
-    return result;
+    return result
   }
 
   // Function that randomly generates date, number of likes and dislikes for the post
@@ -55,8 +74,8 @@ function Posts() {
   }
 
   return (
-    <div className="container posts-container">
-      { displayPosts() }
+    <div className="container posts-container" ref={ loadMorePosts }>
+      { state.postTemplates }
     </div>
   );
 }
