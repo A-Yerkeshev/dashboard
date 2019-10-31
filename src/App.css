@@ -76,6 +76,11 @@ header {
   cursor: pointer;
 }
 
+.spinner {
+  text-align: center;
+  display: none;
+}
+
 footer {
   padding: 10px;
   background-color: var(--dark-grey);
