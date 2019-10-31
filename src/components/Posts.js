@@ -3,7 +3,6 @@ import axios from 'axios';
 import Post from './Post';
 
 function Posts() {
-  console.log('Posts Mounted')
   const [state, setState] = useState({
     posts: []
   });
@@ -31,10 +30,22 @@ function Posts() {
     let result = [];
 
     state.posts.forEach((post) => {
+      // Generate random data for post
+      generateRandomData(post);
       result.push(<Post key={ post.id } post={ post }/>)
     })
 
     return result;
+  }
+
+  // Function that randomly generates date, number of likes and dislikes for the post
+  const generateRandomData = (post) => {
+    const likes = Math.floor(Math.random() * 101);
+    const dislikes = Math.floor(Math.random() * -101);
+    console.log(likes, dislikes);
+
+    post.likes = likes;
+    post.dislikes = dislikes;
   }
 
   return (
