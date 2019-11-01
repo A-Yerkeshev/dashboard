@@ -4,7 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Posts from './components/Posts';
-import Post from './components/Post';
+import PostPage from './components/PostPage';
 
 const header = () => {
   return (
@@ -30,12 +30,6 @@ function App() {
     currentPost: {}
   })
 
-  const setCurrentPost = (post) => {
-    setState({
-      currentPost: post
-    })
-  }
-
   return (
     <Router>
       <div className="container">
@@ -43,8 +37,8 @@ function App() {
         <Route exact path='/' render={ () => (
           <Posts/>
         )}/>
-        <Route path='post/:postId' render={ () => (
-          <Post post={ state.currentPost }/>
+        <Route path='/post/:postId' render={ () => (
+          <PostPage post={ state.currentPost }/>
         )}/>
         { footer() }
       </div>
