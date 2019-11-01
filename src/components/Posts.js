@@ -8,7 +8,7 @@ import Post from './Post';
 function Posts() {
   const [state, setState] = useState({
     posts: []
-  });
+  })
 
   useEffect( () => {
     // Get fist 10 posts from JSONPlaceholder
@@ -20,9 +20,9 @@ function Posts() {
         })
         setState({
           posts: response.data
-        });
+        })
       })
-  }, []);
+  }, [])
 
   // Load more posts when bottom of the page is reached
   const loadMorePosts = useBottomScrollListener( () => {

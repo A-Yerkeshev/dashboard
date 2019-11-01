@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Posts from './components/Posts'
+import Posts from './components/Posts';
+import Post from './components/Post';
 
 const header = () => {
   return (
@@ -25,13 +26,26 @@ const footer = () => {
 }
 
 function App() {
+  const [state, setState] = useState({
+    currentPost: {}
+  })
+
+  const setCurrentPost = (post) => {
+    setState({
+      currentPost: post
+    })
+  }
+
   return (
     <Router>
       <div className="container">
         { header() }
-        <Route exact path='/' render={ (props) => (
+        <Route exact path='/' render={ () => (
           <Posts/>
-        )} />
+        )}/>
+        <Route path='post/:postId' render={ () => (
+          <Post post={ state.currentPost }/>
+        )}/>
         { footer() }
       </div>
     </Router>
