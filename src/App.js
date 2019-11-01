@@ -30,15 +30,20 @@ function App() {
     currentPost: {}
   })
 
+  // Function that gets post id from PostPage component
+  const getPostId = (postId) => {
+    return postId;
+  }
+
   return (
     <Router>
       <div className="container">
         { header() }
         <Route exact path='/' render={ () => (
-          <Posts/>
+          <Posts getPostById = {getPostById}/>
         )}/>
         <Route path='/post/:postId' render={ () => (
-          <PostPage post={ state.currentPost }/>
+          <PostPage getPostId = {getPostId} />
         )}/>
         { footer() }
       </div>

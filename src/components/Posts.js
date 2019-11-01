@@ -68,7 +68,6 @@ function Posts() {
     post.date = date;
   }
 
-  // Function to add new post
   const addPost = (newPost) => {
     const posts = [...state.posts, newPost];
     setState({
