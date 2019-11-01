@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Posts from './components/Posts'
 
@@ -26,11 +26,15 @@ const footer = () => {
 
 function App() {
   return (
-    <div className="container">
-      { header() }
-      <Posts/>
-      { footer() }
-    </div>
+    <Router>
+      <div className="container">
+        { header() }
+        <Route exact path='/' render={ (props) => (
+          <Posts/>
+        )} />
+        { footer() }
+      </div>
+    </Router>
   );
 }
 
