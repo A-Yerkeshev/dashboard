@@ -6,7 +6,6 @@ function Post(props) {
   const body = props.post.body.charAt(0).toUpperCase() + props.post.body.slice(1);
   const likes = props.post.likes;
   const dislikes = props.post.dislikes;
-  const commentsNum = props.post.commentsNum;
   const date = props.post.date;
 
   return (
@@ -16,7 +15,7 @@ function Post(props) {
       <span>{ date }</span><br/>
       <i className="far fa-thumbs-up fa-2x"></i> { likes }
       <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
-      <i className="far fa-comment fa-2x"></i> {commentsNum}
+      <i className="far fa-comment fa-2x"></i> 500
     </div>
   );
 }

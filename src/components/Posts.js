@@ -10,22 +10,22 @@ function Posts() {
     posts: []
   });
 
-  useEffect(() => {
+  useEffect( () => {
     // Get fist 10 posts from JSONPlaceholder
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
       .then((response) => {
         // Generate random data for posts
         response.data.forEach((post) => {
           generateRandomData(post);
-        });
+        })
         setState({
           posts: response.data
         });
-      });
+      })
   }, []);
 
   // Load more posts when bottom of the page is reached
-  const loadMorePosts = useBottomScrollListener(() => {
+  const loadMorePosts = useBottomScrollListener( () => {
     if (state.posts.length < 100) {
       $('.spinner').show();
       axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + (state.posts.length/10 + 1))
@@ -43,14 +43,6 @@ function Posts() {
       $('.spinner').hide();
   });
 
-  // Function to add new post
-  const addPost = (newPost) => {
-    const posts = [...state.posts, newPost];
-    setState({
-      posts
-    })
-  }
-
   // Function that makes JSX templates from posts data
   const displayPosts = () => {
     let result = [];
@@ -66,7 +58,6 @@ function Posts() {
   const generateRandomData = (post) => {
     const likes = Math.floor(Math.random() * 101);
     const dislikes = Math.floor(Math.random() * -101);
-    const commentsNum = Math.floor(Math.random() * 101);
 
     const minDate = new Date(2010, 0, 1);
     const maxDate = new Date();
@@ -74,8 +65,15 @@ function Posts() {
 
     post.likes = likes;
     post.dislikes = dislikes;
-    post.commentsNum = commentsNum;
     post.date = date;
+  }
+
+  // Function to add new post
+  const addPost = (newPost) => {
+    const posts = [...state.posts, newPost];
+    setState({
+      posts
+    })
   }
 
   return (
