@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
@@ -20,9 +19,9 @@ const header = () => {
 const footer = () => {
   return (
     <footer>
-      <span>Powered by <a href="https://reactjs.org/" target="_blank">React</a></span><br/>
+      <span>Powered by <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a></span><br/>
       <span>Backend is simulated by <a href="https://jsonplaceholder.typicode.com/"
-        target="_blank">JSONPlaceholder</a>
+        target="_blank" rel="noopener noreferrer">JSONPlaceholder</a>
       </span><br/>
     </footer>
   )
@@ -50,11 +49,13 @@ function App() {
   }, [])
 
   // Load more posts when bottom of the page is reached
-  const loadMorePosts = useBottomScrollListener( () => {
+  useBottomScrollListener( () => {
     if (state.posts.length < 100) {
       $('.spinner').show();
       axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + (state.posts.length/10 + 1))
         .then((response) => {
+          // Clean error line
+          $('.error-bottom').text('');
           // Generate random data for posts
           response.data.forEach((post) => {
             generateRandomData(post);
@@ -63,10 +64,15 @@ function App() {
           setState({
             ...state,
             posts
-          });
+          })
+        })
+        .catch( (error) => {
+          $('.error-bottom').text('Could not load more posts. Check your internet connection.');
+        })
+        .finally( () => {
+          $('.spinner').hide();
         });
       }
-      $('.spinner').hide();
   });
 
   // Function that randomly generates date, number of likes and dislikes for the post
@@ -104,6 +110,7 @@ function App() {
         <Route path='/post/:postId' render={ () => (
           <PostPage getCurrentPostId={ getCurrentPostId }/>
         )}/>
+        <span className="error-bottom"></span>
         { footer() }
       </div>
     </Router>
