@@ -5,13 +5,13 @@ import Post from './Post';
 
 function PostPage(props) {
   const postId = useParams().postId;
-  const getPostId = props.getPostId;
+  const getCurrentPostId = props.getCurrentPostId;
 
-/*  // Function that sends postId to App component
+  // Function that sends postId to App component
   const sendPostId = () => {
-    getPostId(postId);
+    getCurrentPostId(postId);
   }
-  sendPostId(); */
+  sendPostId();
 
   return (
     <div className="post-page">

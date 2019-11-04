@@ -83,13 +83,14 @@ function App() {
     post.date = date;
   }
 
-/*  // Function that gets post id from PostPage component
-  const getPostId = (postId) => {
+  // Function that gets current post id from PostPage component
+  const getCurrentPostId = (postId) => {
+    console.log(postId)
     return postId;
   }
 
   // Function to get post from Posts component by id
-  const getPostById = (post) => {
+  /*const getPostById = (post) => {
     console.log(post)
   } */
 
@@ -101,7 +102,7 @@ function App() {
           <Posts posts={ state.posts }/>
         )}/>
         <Route path='/post/:postId' render={ () => (
-          <PostPage/>
+          <PostPage getCurrentPostId={ getCurrentPostId }/>
         )}/>
         { footer() }
       </div>
