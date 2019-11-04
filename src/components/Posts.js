@@ -16,32 +16,13 @@ function Posts(props) {
     return result
   }
 
-
-
-/*  // Send post with matched id to App component
-  const findPostById = () => {
-    for (let i=0; i<(posts.length); i++) {
-      if (posts[i].id === postId) {
-        getPostById(posts[i]);
-        return;
-      }
-    }
-  }
-  findPostById();
-
-  const addPost = (newPost) => {
-    const posts = [...state.posts, newPost];
-    setState({
-      posts
-    })
-  } */
-
   return (
     <div className="container posts-container">
       { displayPosts() }
       <div className="fa-3x spinner">
         <i className="fas fa-spinner fa-spin"></i>
       </div>
+      <span className="error-bottom"></span>
     </div>
   );
 }

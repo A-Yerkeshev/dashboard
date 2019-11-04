@@ -89,16 +89,20 @@ function App() {
     post.date = date;
   }
 
-  // Function that gets current post id from PostPage component
-  const getCurrentPostId = (postId) => {
-    console.log(postId)
-    return postId;
+  // Function that sets current post by id from PostPage component
+  const setCurrentPost = (postId) => {
+    let post;
+    for (let i=0; i<(state.posts.length); i++) {
+      if (state.posts[i].id === postId) {
+        post = state.posts[i];
+        return;
+      }
+    }
+    setState({
+      ...state,
+      currentPost: post
+    })
   }
-
-  // Function to get post from Posts component by id
-  /*const getPostById = (post) => {
-    console.log(post)
-  } */
 
   return (
     <Router>
@@ -108,9 +112,8 @@ function App() {
           <Posts posts={ state.posts }/>
         )}/>
         <Route path='/post/:postId' render={ () => (
-          <PostPage getCurrentPostId={ getCurrentPostId }/>
+          <PostPage posts={ state.posts }/>
         )}/>
-        <span className="error-bottom"></span>
         { footer() }
       </div>
     </Router>

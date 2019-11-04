@@ -25,6 +25,7 @@ a:hover {
   --dark-grey: #343434;
 }
 
+/* App component */
 header {
   background-color: var(--theme-color);
   text-align: center;
@@ -38,11 +39,35 @@ header {
   display: grid;
 }
 
+footer {
+  padding: 10px;
+  background-color: var(--dark-grey);
+  color: white;
+  min-height: 100px;
+}
+
+footer a {
+  font-weight: bold;
+}
+
+/* Posts component */
 .posts-container {
   padding: 2%;
   grid-gap: 5px;
 }
 
+.spinner {
+  text-align: center;
+  display: none;
+}
+
+.error-bottom {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px;
+}
+
+/* Post component */
 .post {
   background-color: white;
   padding: 5px;
@@ -76,24 +101,13 @@ header {
   cursor: pointer;
 }
 
-.spinner {
+/* Post page component */
+
+.no-post {
   text-align: center;
-  display: none;
+  margin-bottom: 10px;
 }
 
-.error-bottom {
-  text-align: center;
-  font-weight: bold;
+.no-post > h3 {
   margin: 10px;
-}
-
-footer {
-  padding: 10px;
-  background-color: var(--dark-grey);
-  color: white;
-  min-height: 100px;
-}
-
-footer a {
-  font-weight: bold;
 }
