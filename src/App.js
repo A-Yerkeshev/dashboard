@@ -29,7 +29,6 @@ const footer = () => {
 
 function App() {
   const [state, setState] = useState({
-    currentPost: {},
     posts: []
   })
 
@@ -42,8 +41,7 @@ function App() {
           generateRandomData(post);
         })
         setState({
-          ...state,
-          posts: response.data
+          posts: [...state.posts, ...response.data]
         })
       })
   }, [])
@@ -60,10 +58,8 @@ function App() {
           response.data.forEach((post) => {
             generateRandomData(post);
           });
-          const posts = [...state.posts, ...response.data];
           setState({
-            ...state,
-            posts
+            posts: [...state.posts, ...response.data]
           })
         })
         .catch( (error) => {
@@ -89,20 +85,26 @@ function App() {
     post.date = date;
   }
 
-  // Function that sets current post by id from PostPage component
-  const setCurrentPost = (postId) => {
-    let post;
-    for (let i=0; i<(state.posts.length); i++) {
-      if (state.posts[i].id === postId) {
-        post = state.posts[i];
-        return;
-      }
-    }
-    setState({
-      ...state,
-      currentPost: post
-    })
+  const loadSinglePost = (postId) => {
+    $('.no-post').hide();
+    $('.spinner').show();
+    axios.get(`https://jsonplaceholder.typicode.com/posts/` + postId)
+      .then( (response) => {
+        const post = response.data;
+        generateRandomData(post);
+        setState({
+          posts: [...state.posts, post]
+        })
+      })
+      .catch( (error) => {
+        $('.no-post').show();
+      })
+      .finally( () => {
+        $('.spinner').hide();
+      })
   }
+
+  console.log(state.posts)
 
   return (
     <Router>
@@ -112,7 +114,7 @@ function App() {
           <Posts posts={ state.posts }/>
         )}/>
         <Route path='/post/:postId' render={ () => (
-          <PostPage posts={ state.posts }/>
+          <PostPage posts={ state.posts } loadSinglePost = { loadSinglePost }/>
         )}/>
         { footer() }
       </div>
