@@ -91,6 +91,12 @@ function App() {
     axios.get(`https://jsonplaceholder.typicode.com/posts/` + postId)
       .then( (response) => {
         const post = response.data;
+        // Avoid post dublicates
+        for (let i=0; i<(state.posts.length); i++) {
+          if (state.posts[i].id === postId) {
+            return;
+          }
+        }
         generateRandomData(post);
         setState({
           posts: [...state.posts, post]
