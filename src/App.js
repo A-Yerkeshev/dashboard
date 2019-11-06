@@ -47,7 +47,7 @@ function App() {
   }, [])
 
   // Load more posts when bottom of the page is reached
-  useBottomScrollListener( () => {
+/*  useBottomScrollListener( () => {
     if (state.posts.length < 100) {
       $('.spinner').show();
       axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + (state.posts.length/10 + 1))
@@ -69,7 +69,7 @@ function App() {
           $('.spinner').hide();
         });
       }
-  });
+  }); */
 
   // Function that randomly generates date, number of likes and dislikes for the post
   const generateRandomData = (post) => {

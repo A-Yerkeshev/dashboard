@@ -29,6 +29,14 @@ function PostPage(props) {
     if (state.post === undefined) {
       loadSinglePost(postId);
     }
+    // Load comments
+    axios.get(`https://jsonplaceholder.typicode.com/posts/1/comments?postId=` + postId)
+      .then( (response) => {
+        setState({
+          post: state.post,
+          comments: response.data
+        })
+      })
   }, [postId, posts, loadSinglePost])
 
   const displayPost = () => {
@@ -45,18 +53,21 @@ function PostPage(props) {
   }
 
   const displayComments = () => {
-    axios.get(`https://jsonplaceholder.typicode.com/posts/` + postId + '/comments')
-      .then( (response) => {
-        setState({
-          post: state.post,
-          comments: response.data
-        })
-      })
+    const result = state.comments.map( (comment) => {
+      return (
+        <div key={comment.id} className="comment">{ comment.body }</div>
+      )
+    console.log(result)
+    })
+    return (
+      <div className="container">{ result }</div>
+    )
   }
 
   return (
-    <div className="post-page">
+    <div className="post-page container">
       { displayPost() }
+      { displayComments() }
       <div className="fa-3x spinner">
         <i className="fas fa-spinner fa-spin"></i>
       </div>

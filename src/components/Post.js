@@ -15,7 +15,7 @@ function Post(props) {
       <span>{ date }</span><br/>
       <i className="far fa-thumbs-up fa-2x"></i> { likes }
       <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
-      <i className="far fa-comment fa-2x"></i> 500
+      <i className="far fa-comment fa-2x"></i> 5
     </div>
   );
 }
