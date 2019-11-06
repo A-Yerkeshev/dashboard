@@ -21,8 +21,7 @@ function PostPage(props) {
       return <Post post={ post }/>
     } else {
       // If post is not loaded yet, try to get it from server
-      //loadSinglePost(postId);
-      return <div>Not found</div>
+      loadSinglePost(postId);
     }
   }
 

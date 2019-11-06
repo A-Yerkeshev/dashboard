@@ -104,8 +104,6 @@ function App() {
       })
   }
 
-  console.log(state.posts)
-
   return (
     <Router>
       <div className="container">
