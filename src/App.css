@@ -102,6 +102,10 @@ footer a {
 }
 
 /* Post page component */
+.single-post {
+  border-bottom: var(--theme-color) 20px solid;
+}
+
 .no-post {
   text-align: center;
   margin-bottom: 10px;
@@ -110,4 +114,12 @@ footer a {
 
 .no-post > h3 {
   margin: 10px;
+}
+
+.comments {
+  grid-row-gap: 10px;
+}
+
+.comment {
+  background-color: white;
 }

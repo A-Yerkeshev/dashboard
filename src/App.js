@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
-import $ from 'jquery';
 
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
@@ -85,31 +84,6 @@ function App() {
     post.date = date;
   }
 
-  const loadSinglePost = (postId) => {
-    $('.no-post').hide();
-    $('.spinner').show();
-    axios.get(`https://jsonplaceholder.typicode.com/posts/` + postId)
-      .then( (response) => {
-        const post = response.data;
-        // Avoid post dublicates
-        for (let i=0; i<(state.posts.length); i++) {
-          if (state.posts[i].id === postId) {
-            return;
-          }
-        }
-        generateRandomData(post);
-        setState({
-          posts: [...state.posts, post]
-        })
-      })
-      .catch( (error) => {
-        $('.no-post').show();
-      })
-      .finally( () => {
-        $('.spinner').hide();
-      })
-  }
-
   return (
     <Router>
       <div className="container">
@@ -118,7 +92,7 @@ function App() {
           <Posts posts={ state.posts }/>
         )}/>
         <Route path='/post/:postId' render={ () => (
-          <PostPage posts={ state.posts } loadSinglePost = { loadSinglePost }/>
+          <PostPage posts={ state.posts } generateRandomData = { generateRandomData }/>
         )}/>
         { footer() }
       </div>

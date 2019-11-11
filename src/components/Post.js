@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Post(props) {
-  // Get props
   const title = props.post.title.charAt(0).toUpperCase() + props.post.title.slice(1);
   const body = props.post.body.charAt(0).toUpperCase() + props.post.body.slice(1);
   const likes = props.post.likes;
