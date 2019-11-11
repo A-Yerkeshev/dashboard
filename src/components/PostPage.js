@@ -24,7 +24,6 @@ function PostPage(props) {
       })
   }
 
-  // Set current post
   useEffect( () => {
     // Load current post by id provided
     // Check if post is already loaded
@@ -35,7 +34,7 @@ function PostPage(props) {
           comments: state.comments
         })
         //loadComments(posts[i]);
-        break;
+        return;
       }
     }
 
