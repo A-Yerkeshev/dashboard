@@ -83,6 +83,11 @@ footer a {
   box-shadow: var(--dark-grey) 0 0 1px 1px;
 }
 
+.post-link {
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+}
+
 .post > h3 {
   border-bottom: var(--dark-grey) 1px double;
 }

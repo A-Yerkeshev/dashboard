@@ -7,25 +7,6 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
 
-const header = () => {
-  return (
-    <header>
-      <h2>Dashboard App</h2>
-    </header>
-  )
-}
-
-const footer = () => {
-  return (
-    <footer>
-      <span>Powered by <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a></span><br/>
-      <span>Backend is simulated by <a href="https://jsonplaceholder.typicode.com/"
-        target="_blank" rel="noopener noreferrer">JSONPlaceholder</a>
-      </span><br/>
-    </footer>
-  )
-}
-
 function App() {
   const [state, setState] = useState({
     posts: []
@@ -34,7 +15,7 @@ function App() {
   useEffect( () => {
     // Get fist 10 posts from JSONPlaceholder
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
-      .then((response) => {
+      .then( (response) => {
         // Generate random data for posts
         response.data.forEach((post) => {
           generateRandomData(post);
@@ -82,6 +63,25 @@ function App() {
     post.likes = likes;
     post.dislikes = dislikes;
     post.date = date;
+  }
+
+  const header = () => {
+    return (
+      <header>
+        <h2>Dashboard App</h2>
+      </header>
+    )
+  }
+
+  const footer = () => {
+    return (
+      <footer>
+        <span>Powered by <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a></span><br/>
+        <span>Backend is simulated by <a href="https://jsonplaceholder.typicode.com/"
+          target="_blank" rel="noopener noreferrer">JSONPlaceholder</a>
+        </span><br/>
+      </footer>
+    )
   }
 
   return (

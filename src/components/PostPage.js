@@ -14,7 +14,15 @@ function PostPage(props) {
     comments: []
   })
 
-  console.log(state)
+  const loadComments = (post) => {
+    axios.get(`https://jsonplaceholder.typicode.com/posts/1/comments?postId=` + postId)
+      .then( (response) => {
+        setState({
+          post,
+          comments: response.data
+        })
+      })
+  }
 
   // Set current post
   useEffect( () => {
@@ -26,6 +34,7 @@ function PostPage(props) {
           post: posts[i],
           comments: state.comments
         })
+        //loadComments(posts[i]);
         break;
       }
     }
@@ -42,6 +51,7 @@ function PostPage(props) {
             post,
             comments: state.comments
           })
+          //loadComments(post);
         })
         .catch( (error) => {
           $('.no-post').show();
@@ -50,15 +60,6 @@ function PostPage(props) {
           $('.spinner').hide();
         })
     }
-
-    // Load comments
-/*     axios.get(`https://jsonplaceholder.typicode.com/posts/1/comments?postId=` + postId)
-      .then( (response) => {
-        setState({
-          post: state.post,
-          comments: response.data
-        })
-      }) */
 
   }, [postId, posts])
 
