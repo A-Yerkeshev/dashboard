@@ -20,7 +20,7 @@ function Post(props) {
         <i className="far fa-comment fa-2x"></i> 5
       </div>
     </Link>
-  );
+  )
 }
 
 export default Post;

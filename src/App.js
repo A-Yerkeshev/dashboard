@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
+import Registration from './components/Registration';
 
 function App() {
   const [state, setState] = useState({
@@ -54,8 +55,8 @@ function App() {
         <h2>Dashboard App</h2>
         <nav>
           <Link to='/'>Home |</Link>
-          <Link to='/'>Sing in |</Link>
-          <Link to='/'>Register</Link>
+          <Link to='/'>Sign In |</Link>
+          <Link to='/register'>Register</Link>
         </nav>
       </header>
     )
@@ -81,6 +82,9 @@ function App() {
         )}/>
         <Route path='/post/:postId' render={ () => (
           <PostPage posts={ state.posts } generateRandomData = { generateRandomData }/>
+        )}/>
+        <Route path='/register' render={ () => (
+          <Registration/>
         )}/>
         { footer() }
       </div>
