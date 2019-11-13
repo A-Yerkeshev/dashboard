@@ -31,8 +31,16 @@ header {
   text-align: center;
   color: white;
   min-height: 50px;
-  border-bottom: var(--dark-grey) 5px solid;
-  padding: 10px;
+  border-bottom: var(--theme-color) 5px solid;
+}
+
+nav {
+  background-color: var(--dark-grey);
+  font-size: larger;
+}
+
+nav > a {
+  padding: 5px;
 }
 
 .container {

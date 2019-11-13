@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Posts from './components/Posts';
@@ -52,6 +52,11 @@ function App() {
     return (
       <header>
         <h2>Dashboard App</h2>
+        <nav>
+          <Link to='/'>Home |</Link>
+          <Link to='/'>Sing in |</Link>
+          <Link to='/'>Register</Link>
+        </nav>
       </header>
     )
   }
