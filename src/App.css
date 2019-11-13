@@ -159,10 +159,21 @@ footer a {
   font-size: larger;
 }
 
+.reg-form > button {
+  font-size: large;
+  background-color: white;
+  border: none;
+  padding: 5px;
+}
+
 input {
   font-size: larger;
   border: var(--dark-grey) 1px solid;
   border-radius: 5px;
   margin-bottom: 10px;
   padding: 0 10px 0 10px;
+}
+
+.fa-eye {
+  display: none;
 }
