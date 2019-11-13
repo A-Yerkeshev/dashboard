@@ -131,4 +131,10 @@ footer a {
 
 .comment {
   background-color: white;
+  padding: 10px;
+}
+
+.comment > span {
+  text-decoration: underline;
+  font-weight: bold;
 }
