@@ -88,6 +88,10 @@ footer a {
   color: black;
 }
 
+.post-link:hover {
+  text-decoration: none;
+}
+
 .post > h3 {
   border-bottom: var(--dark-grey) 1px double;
 }

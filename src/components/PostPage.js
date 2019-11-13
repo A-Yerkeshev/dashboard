@@ -33,7 +33,7 @@ function PostPage(props) {
           post: posts[i],
           comments: state.comments
         })
-        //loadComments(posts[i]);
+        loadComments(posts[i]);
         return;
       }
     }
@@ -50,7 +50,7 @@ function PostPage(props) {
             post,
             comments: state.comments
           })
-          //loadComments(post);
+          loadComments(post);
         })
         .catch( (error) => {
           $('.no-post').show();
@@ -58,7 +58,7 @@ function PostPage(props) {
         .finally( () => {
           $('.spinner').hide();
         })
-    }
+      }
 
   }, [postId, posts])
 
