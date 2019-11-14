@@ -55,7 +55,7 @@ function App() {
         <h2>Dashboard App</h2>
         <nav>
           <Link to='/'>Home |</Link>
-          <Link to='/'>Sign In |</Link>
+          <Link to='/sign-in'>Sign In |</Link>
           <Link to='/register'>Register</Link>
         </nav>
       </header>
