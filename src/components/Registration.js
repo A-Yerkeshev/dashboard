@@ -46,12 +46,19 @@ function Registration(props) {
       return;
     }
 
+    if(password.indexOf(' ') >= 0){
+      $('#reg-error').text('Password cannot contain whitespaces!');
+      $('#password').css('color', 'red');
+      return;
+    }
+
     if (password !== repPassword) {
       $('#reg-error').text('Passwords do not match!');
       $('#password').css('color', 'red');
       $('#rep-password').css('color', 'red');
       return;
     }
+
   }
 
   const clearAlerts = () => {
