@@ -29,7 +29,7 @@ function Registration(props) {
   const registerNewUser = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
-    const username = data.get('username');
+    const username = data.get('username').trim();
     const password = data.get('password');
     const repPassword = data.get('rep-password');
 
