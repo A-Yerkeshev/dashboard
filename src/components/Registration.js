@@ -42,11 +42,18 @@ function Registration(props) {
     }
   }
 
+  const clearAlerts = () => {
+    $('#reg-error').text('');
+    $('#username').css('color', 'black');
+    $('#password').css('color', 'black');
+    $('#rep-password').css('color', 'black');
+  }
+
   return (
     <div className="container registration">
       <h2>Welcome to Dashboard App!</h2>
       <span id="reg-error"></span>
-      <form className="reg-form" onSubmit={ registerNewUser }>
+      <form className="reg-form" onSubmit={ registerNewUser } onClick={ clearAlerts }>
         Username:<br/>
         <input type="text" name="username" id="username"/><br/>
         Password:<br/>
