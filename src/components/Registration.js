@@ -34,6 +34,18 @@ function Registration(props) {
     const repPassword = data.get('rep-password');
 
     // Validate user input
+    if (username === '') {
+      $('#reg-error').text('Username cannot be blank!');
+      $('#username').css('background-color', 'red');
+      return;
+    }
+
+    if (password === '') {
+      $('#reg-error').text('Password cannot be blank!');
+      $('#password').css('background-color', 'red');
+      return;
+    }
+
     if (password !== repPassword) {
       $('#reg-error').text('Passwords do not match!');
       $('#password').css('color', 'red');
@@ -45,7 +57,9 @@ function Registration(props) {
   const clearAlerts = () => {
     $('#reg-error').text('');
     $('#username').css('color', 'black');
+    $('#username').css('background-color', 'white');
     $('#password').css('color', 'black');
+    $('#password').css('background-color', 'white');
     $('#rep-password').css('color', 'black');
   }
 
