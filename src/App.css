@@ -160,6 +160,11 @@ footer a {
   color: var(--theme-color);
 }
 
+#reg-error {
+  font-size: larger;
+  color: red;
+}
+
 .reg-form {
   font-size: larger;
 }

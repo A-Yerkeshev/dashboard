@@ -25,10 +25,28 @@ function Registration(props) {
       </button>
     )
   }
+
+  const registerNewUser = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const username = data.get('username');
+    const password = data.get('password');
+    const repPassword = data.get('rep-password');
+
+    // Validate user input
+    if (password !== repPassword) {
+      $('#reg-error').text('Passwords do not match!');
+      $('#password').css('color', 'red');
+      $('#rep-password').css('color', 'red');
+      return;
+    }
+  }
+
   return (
     <div className="container registration">
       <h2>Welcome to Dashboard App!</h2>
-      <form className="reg-form">
+      <span id="reg-error"></span>
+      <form className="reg-form" onSubmit={ registerNewUser }>
         Username:<br/>
         <input type="text" name="username" id="username"/><br/>
         Password:<br/>
