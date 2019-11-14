@@ -3,11 +3,18 @@ import $ from 'jquery';
 
 function Registration(props) {
 
-  const toggleEyeButton = () => {
+  const toggleEyeButton = (fieldId) => {
     const toggle = (event) => {
       event.preventDefault();
       $(event.target).toggle();
       $(event.target).siblings().toggle();
+
+      const field = $('#' + fieldId);
+      if (field.attr('type') === 'password') {
+        field.attr('type', 'text');
+      } else {
+        field.attr('type', 'password');
+      }
     }
 
     return (
@@ -24,9 +31,9 @@ function Registration(props) {
         Username:<br/>
         <input type="text" name="username"/><br/>
         Password:<br/>
-        <input type="password" name="password"/>{ toggleEyeButton() }<br/>
+        <input type="password" name="password" id="password"/>{ toggleEyeButton('password') }<br/>
         Repeat password:<br/>
-        <input type="password" name="rep-password"/>{ toggleEyeButton() }<br/>
+        <input type="password" name="rep-password" id="rep-password"/>{ toggleEyeButton('rep-password') }<br/>
       </form>
     </div>
   )
