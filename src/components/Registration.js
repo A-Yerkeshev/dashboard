@@ -67,9 +67,14 @@ function Registration(props) {
       return;
     }
 
-    const sameNameUser = Users.find( (user) => {
-      return user.username === username;
-    })
+    // Check if username is already used
+    for (let id in Users) {
+      if (Users[id].username === username) {
+        $('#reg-error').text('This username is already in use!');
+        $('#username').css('color', 'red');
+        return;
+      }
+    }
 
   }
 
