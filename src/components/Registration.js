@@ -46,8 +46,14 @@ function Registration(props) {
       return;
     }
 
-    if(password.indexOf(' ') >= 0){
+    if (password.indexOf(' ') >= 0){
       $('#reg-error').text('Password cannot contain whitespaces!');
+      $('#password').css('color', 'red');
+      return;
+    }
+
+    if (password.length < 5) {
+      $('#reg-error').text('Password cannot be shorter that 5 characters long!');
       $('#password').css('color', 'red');
       return;
     }
