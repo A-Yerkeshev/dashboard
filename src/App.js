@@ -9,6 +9,7 @@ import Registration from './components/Registration';
 
 function App() {
   const [state, setState] = useState({
+    currentUser: null,
     posts: []
   })
 
@@ -21,6 +22,7 @@ function App() {
           generateRandomData(post);
         })
         setState({
+          ...state,
           posts: [...state.posts, ...response.data]
         })
       })
@@ -45,6 +47,7 @@ function App() {
       generateRandomData(post)
     })
     setState({
+      ...state,
       posts: [...state.posts, ...posts]
     })
   }
