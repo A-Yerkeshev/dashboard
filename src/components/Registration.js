@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
+import Users from '../users';
 
 function Registration(props) {
+  const setCurrentUser = props.setCurrentUser;
 
   const toggleEyeButton = (fieldId) => {
     const toggle = (event) => {
@@ -64,6 +66,10 @@ function Registration(props) {
       $('#rep-password').css('color', 'red');
       return;
     }
+
+    const sameNameUser = Users.find( (user) => {
+      return user.username === username;
+    })
 
   }
 

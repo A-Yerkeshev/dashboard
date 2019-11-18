@@ -52,6 +52,13 @@ function App() {
     })
   }
 
+  const setCurrentUser = (user) => {
+    setState({
+      ...state,
+      currentUser: user
+    })
+  }
+
   const header = () => {
     return (
       <header>
@@ -84,10 +91,10 @@ function App() {
           <Posts posts={ state.posts } addNewPosts={ addNewPosts }/>
         )}/>
         <Route path='/post/:postId' render={ () => (
-          <PostPage posts={ state.posts } generateRandomData = { generateRandomData }/>
+          <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>
         )}/>
         <Route path='/register' render={ () => (
-          <Registration/>
+          <Registration setCurrentUser={ setCurrentUser }/>
         )}/>
         { footer() }
       </div>
