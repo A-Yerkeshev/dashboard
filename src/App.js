@@ -8,12 +8,29 @@ import PostPage from './components/PostPage';
 import Registration from './components/Registration';
 
 function App() {
+
+  // Fetch GET route from the Express server
+  const callBackendAPI = async () => {
+    const response = await fetch('/express_backend');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body;
+  };
+
   const [state, setState] = useState({
     currentUser: null,
     posts: []
   })
 
   useEffect( () => {
+    callBackendAPI()
+      //.then(res => this.setState({ data: res.express }))
+      .then(res => console.log(res.express))
+      .catch(err => console.log(err));
+
     // Get fist 10 posts from JSONPlaceholder
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
       .then( (response) => {
