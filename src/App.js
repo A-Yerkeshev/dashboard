@@ -9,9 +9,8 @@ import Registration from './components/Registration';
 
 function App() {
 
-  // Fetch GET route from the Express server
   const callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
+    const response = await fetch('/server');
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -27,8 +26,6 @@ function App() {
 
   useEffect( () => {
     callBackendAPI()
-      //.then(res => this.setState({ data: res.express }))
-      .then(res => console.log(res.express))
       .catch(err => console.log(err));
 
     // Get fist 10 posts from JSONPlaceholder

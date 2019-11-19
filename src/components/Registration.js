@@ -84,7 +84,7 @@ function Registration(props) {
     }
 
     // Send post request to the server
-    axios.post('/register/new-user', newUser)
+    axios.post('/server', newUser)
       .then( (response) => {console.log(response)})
       .catch(function (error) {
         console.log(error);
