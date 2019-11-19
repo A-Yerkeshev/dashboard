@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
+import axios from 'axios';
 import Users from '../users';
 
 function Registration(props) {
@@ -75,6 +76,19 @@ function Registration(props) {
         return;
       }
     }
+
+    const newUser = {
+      id: Object.keys(Users).length + 1,
+      username,
+      password
+    }
+
+    // Send post request to the server
+    axios.post('/register/new-user', newUser)
+      .then( (response) => {console.log(response)})
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
