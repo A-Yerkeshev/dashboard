@@ -10,7 +10,7 @@ import Registration from './components/Registration';
 function App() {
 
   const callBackendAPI = async () => {
-    const response = await fetch('/server');
+    const response = await fetch('/');
     const body = await response.json();
 
     if (response.status !== 200) {
