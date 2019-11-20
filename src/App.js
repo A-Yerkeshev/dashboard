@@ -25,8 +25,8 @@ function App() {
   })
 
   useEffect( () => {
-    callBackendAPI()
-      .catch(err => console.log(err));
+    //callBackendAPI()
+      //.catch(err => console.log(err));
 
     // Get fist 10 posts from JSONPlaceholder
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)

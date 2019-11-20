@@ -1,6 +1,11 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const app = express();
+
 const port = process.env.PORT || 3001;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.listen(port, () => console.log(`Backend is listening on port ${port}`));
 
@@ -10,9 +15,6 @@ app.post('/register', (req, res) => {
   const id = req.body.id;
   const username = req.body.username;
   const password = req.body.password;
-
-  console.log('Username: ' + username);
-  console.log('Username: ' + username);
 
   res.end('New user successfully registered');
 });
