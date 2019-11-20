@@ -69,6 +69,10 @@ function Auth(props) {
       }
     }
 
+    // Alert that user with this username is not found
+    $('#sign-error').text('User with this username is not found!');
+    $('#username').css('color', 'red');
+
   }
 
   return (

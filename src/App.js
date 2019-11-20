@@ -94,7 +94,7 @@ function App() {
     return (
       <footer>
         <span>Powered by <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a></span><br/>
-        <span>Backend is simulated by <a href="https://jsonplaceholder.typicode.com/"
+        <span>Dummy data is provided by <a href="https://jsonplaceholder.typicode.com/"
           target="_blank" rel="noopener noreferrer">JSONPlaceholder</a>
         </span><br/>
       </footer>

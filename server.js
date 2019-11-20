@@ -23,8 +23,7 @@ app.post('/register', (req, res) => {
       if (err) {
         console.log('Could not register a user. Error: ' + err);
       }
-    });
+    })
   })
 
-  res.end('New user successfully registered');
 });
