@@ -83,10 +83,10 @@ function Registration(props) {
       password
     }
 
-    // Send post request to the server
+    // Send POST request to the server
     axios.post('/register', newUser)
       .then( (response) => {
-        console.log('Sign in user now');
+        setCurrentUser(newUser);
       })
       .catch( (error) => {
         console.log(error);

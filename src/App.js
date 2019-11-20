@@ -9,7 +9,7 @@ import Registration from './components/Registration';
 
 function App() {
 
-  const callBackendAPI = async () => {
+  /* const callBackendAPI = async () => {
     const response = await fetch('/');
     const body = await response.json();
 
@@ -17,16 +17,18 @@ function App() {
       throw Error(body.message)
     }
     return body;
-  };
+  }; */
 
   const [state, setState] = useState({
-    currentUser: null,
+    currentUser: {
+      id: 0,
+      username: '',
+      password: ''
+    },
     posts: []
   })
 
   useEffect( () => {
-    //callBackendAPI()
-      //.catch(err => console.log(err));
 
     // Get fist 10 posts from JSONPlaceholder
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
@@ -78,6 +80,7 @@ function App() {
       <header>
         <h2>Dashboard App</h2>
         <nav>
+          <h3>{ state.currentUser.username }</h3>
           <Link to='/'>Home |</Link>
           <Link to='/sign-in'>Sign In |</Link>
           <Link to='/register'>Register</Link>
