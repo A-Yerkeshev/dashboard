@@ -106,7 +106,7 @@ function Registration(props) {
   return (
     <div className="container log-page">
       <h2>Welcome to Dashboard App!</h2>
-      <span id="reg-error error"></span>
+      <span id="reg-error" className="error"></span>
       <form className="log-form" onSubmit={ registerNewUser } onClick={ clearAlerts }>
         Username:<br/>
         <input type="text" name="username" id="username"/><br/>
