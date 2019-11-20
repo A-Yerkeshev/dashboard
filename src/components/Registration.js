@@ -69,8 +69,8 @@ function Registration(props) {
     }
 
     // Check if username is already used
-    for (let id in Users) {
-      if (Users[id].username === username) {
+    for (let i=0; i<(Users.length); i++) {
+      if (Users[i].username === username) {
         $('#reg-error').text('This username is already in use!');
         $('#username').css('color', 'red');
         return;
@@ -78,15 +78,17 @@ function Registration(props) {
     }
 
     const newUser = {
-      id: Object.keys(Users).length + 1,
+      id: Users.length + 1,
       username,
       password
     }
 
     // Send post request to the server
     axios.post('/register', newUser)
-      .then( (response) => {console.log(response)})
-      .catch(function (error) {
+      .then( (response) => {
+        console.log('Sign in user now');
+      })
+      .catch( (error) => {
         console.log(error);
       });
 
