@@ -104,10 +104,10 @@ function Registration(props) {
   }
 
   return (
-    <div className="container registration">
+    <div className="container log-page">
       <h2>Welcome to Dashboard App!</h2>
-      <span id="reg-error"></span>
-      <form className="reg-form" onSubmit={ registerNewUser } onClick={ clearAlerts }>
+      <span id="reg-error error"></span>
+      <form className="log-form" onSubmit={ registerNewUser } onClick={ clearAlerts }>
         Username:<br/>
         <input type="text" name="username" id="username"/><br/>
         Password:<br/>

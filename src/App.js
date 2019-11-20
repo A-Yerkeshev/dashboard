@@ -6,6 +6,7 @@ import axios from 'axios';
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
 import Registration from './components/Registration';
+import Auth from './components/Auth';
 
 function App() {
 
@@ -109,6 +110,9 @@ function App() {
         )}/>
         <Route path='/post/:postId' render={ () => (
           <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>
+        )}/>
+        <Route path='/sign-in' render={ () => (
+          <Auth setCurrentUser={ setCurrentUser }/>
         )}/>
         <Route path='/register' render={ () => (
           <Registration setCurrentUser={ setCurrentUser }/>

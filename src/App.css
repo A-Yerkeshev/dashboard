@@ -149,23 +149,23 @@ footer a {
 
 /* Registration component */
 
-.registration {
+.log-page {
   text-align: center;
   padding: 10px;
   background-color: white;
   grid-row-gap: 15px;
 }
 
-.registration a {
+.log-page a {
   color: var(--theme-color);
 }
 
-#reg-error {
+.error {
   font-size: larger;
   color: red;
 }
 
-.reg-form {
+.log-form {
   font-size: larger;
 }
 
