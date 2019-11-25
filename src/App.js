@@ -76,6 +76,8 @@ function App() {
     })
   }
 
+  console.log('App mounted')
+
   const header = () => {
     return (
       <header>
