@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
-import Users from '../../users';
+import Users from '../users';
 
 function Registration(props) {
   const setCurrentUser = props.setCurrentUser;
@@ -87,6 +87,7 @@ function Registration(props) {
     axios.post('/register', newUser)
       .then( (response) => {
         setCurrentUser(newUser);
+        props.history.push('/');
       })
       .catch( (error) => {
         console.log(error);
@@ -121,4 +122,4 @@ function Registration(props) {
   )
 }
 
-export default Registration
+export default withRouter(Registration)

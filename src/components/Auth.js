@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
 import Users from '../users';
 
@@ -60,12 +60,14 @@ function Auth(props) {
       if (Users[i].username === username) {
         if (Users[i].password === password) {
           setCurrentUser(Users[i]);
+          props.history.push('/');
+          return;
         } else {
           $('#sign-error').text('Username or password is incorrect!');
           $('#username').css('color', 'red');
           $('#password').css('color', 'red');
+          return;
         }
-        return;
       }
     }
 
@@ -91,4 +93,4 @@ function Auth(props) {
   )
 }
 
-export default Auth
+export default withRouter(Auth)
