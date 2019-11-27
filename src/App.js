@@ -62,6 +62,13 @@ function App() {
     })
   }
 
+  const signOut = () => {
+    setState({
+      ...state,
+      currentUser: null
+    })
+  }
+
   const header = () => {
     let authLinks;
     let profileInfo;
@@ -78,7 +85,7 @@ function App() {
       )
     } else {
       authLinks = (
-        <Link to='/'>Sign Out</Link>
+        <Link to='/' onClick={ signOut }>Sign Out</Link>
       )
       profileInfo = (
         <div id="prof-head">
