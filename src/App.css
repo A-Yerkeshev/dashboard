@@ -43,6 +43,12 @@ nav > a {
   padding: 5px;
 }
 
+#prof-head {
+  background-color: var(--dark-grey);
+  padding-right: 20px;
+  text-align: right;
+}
+
 .container {
   display: grid;
 }

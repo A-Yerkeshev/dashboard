@@ -10,22 +10,8 @@ import Auth from './components/Auth';
 
 function App() {
 
-  /* const callBackendAPI = async () => {
-    const response = await fetch('/');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body;
-  }; */
-
   const [state, setState] = useState({
-    currentUser: {
-      id: 0,
-      username: '',
-      password: ''
-    },
+    currentUser: null,
     posts: []
   })
 
@@ -77,15 +63,38 @@ function App() {
   }
 
   const header = () => {
+    let authLinks;
+    let profileInfo;
+
+    if (state.currentUser == null) {
+      authLinks = (
+        <React.Fragment>
+          <Link to='/sign-in'>Sign In |</Link>
+          <Link to='/register'>Register</Link>
+        </React.Fragment>
+      )
+      profileInfo = (
+        <React.Fragment></React.Fragment>
+      )
+    } else {
+      authLinks = (
+        <Link to='/'>Sign Out</Link>
+      )
+      profileInfo = (
+        <div id="prof-head">
+          <h3>Signed as { state.currentUser.username }</h3>
+        </div>
+      )
+    }
+
     return (
       <header>
         <h2>Dashboard App</h2>
         <nav>
-          <h3>{ state.currentUser.username }</h3>
           <Link to='/'>Home |</Link>
-          <Link to='/sign-in'>Sign In |</Link>
-          <Link to='/register'>Register</Link>
+          { authLinks }
         </nav>
+        { profileInfo }
       </header>
     )
   }
