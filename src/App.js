@@ -7,6 +7,7 @@ import Posts from './components/Posts';
 import PostPage from './components/PostPage';
 import Registration from './components/Registration';
 import Auth from './components/Auth';
+import Profile from './components/Profile';
 
 function App() {
 
@@ -85,11 +86,14 @@ function App() {
       )
     } else {
       authLinks = (
-        <Link to='/' onClick={ signOut }>Sign Out</Link>
+        <React.Fragment>
+          <Link to='/profile'>Profile |</Link>
+          <Link to='/' onClick={ signOut }>Sign Out</Link>
+        </React.Fragment>
       )
       profileInfo = (
         <div id="prof-head">
-          <h3>Signed as <i class="fas fa-user"></i> { state.currentUser.username }</h3>
+          <h3>Signed as <i className="fas fa-user"></i> { state.currentUser.username }</h3>
         </div>
       )
     }
@@ -132,6 +136,9 @@ function App() {
         )}/>
         <Route path='/register' render={ () => (
           <Registration setCurrentUser={ setCurrentUser }/>
+        )}/>
+        <Route path='/profile' render={ () => (
+          <Profile />
         )}/>
         { footer() }
       </div>
