@@ -89,7 +89,7 @@ function App() {
       )
       profileInfo = (
         <div id="prof-head">
-          <h3>Signed as { state.currentUser.username }</h3>
+          <h3>Signed as <i class="fas fa-user"></i> { state.currentUser.username }</h3>
         </div>
       )
     }

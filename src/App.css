@@ -49,6 +49,13 @@ nav > a {
   text-align: right;
 }
 
+.fa-user {
+  font-size: x-large;
+  background-color: var(--theme-color);
+  border-radius: 50%;
+  padding: 5px;
+}
+
 .container {
   display: grid;
 }
