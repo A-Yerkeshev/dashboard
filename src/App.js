@@ -138,7 +138,7 @@ function App() {
           <Registration setCurrentUser={ setCurrentUser }/>
         )}/>
         <Route path='/profile' render={ () => (
-          <Profile />
+          <Profile user={ state.currentUser }/>
         )}/>
         { footer() }
       </div>
