@@ -255,3 +255,53 @@ input {
   margin-bottom: 20px;
   font-weight: normal;
 }
+
+#pic-panel {
+  position: absolute;
+  background-color: white;
+  box-shadow: var(--dark-grey) 0 0 100px 50px;
+  margin: 5%;
+  width: 90%;
+  padding: 10px;
+  overflow: hidden;
+}
+
+#pic-panel > form {
+  grid-template-areas:
+    'input input input'
+    'submit . .';
+}
+
+#pic-panel-input {
+  grid-area: input;
+  padding-left: 0;
+}
+
+#pic-panel-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+#pic-panel-input::before {
+  content: 'Chose file';
+  display: inline-block;
+  outline: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  background-color: var(--theme-color);
+  color: white;
+  padding: 5px;
+  height: 100%;
+}
+
+#pic-panel-submit {
+  grid-area: submit;
+  background-color: var(--dark-grey);
+  color: white;
+  border: none;
+  padding: 5px;
+}
+
+#pic-panel input {
+  width: 100%
+}
+
