@@ -14,8 +14,9 @@ function Profile(props) {
       <div id="pic-panel">
         <form className="container">
           <input id="pic-panel-input" type="file" name="pic" accept="image/*"/>
-          <input id="pic-panel-submit" type="submit" value="Change picture" />
+          <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture" />
         </form>
+        <button className="btn-dark" onClick={ closePicturePanel } >Cancel</button>
       </div>
     )
   }
@@ -24,11 +25,15 @@ function Profile(props) {
     $('#pic-panel').show();
   }
 
+  const closePicturePanel = () => {
+    $('#pic-panel').hide();
+  }
+
   return (
     <div className="container profile">
       <div className="prof-pic">
         <i className="fas fa-user"></i>
-        <button onClick={ openPicturePanel }>Change picture</button>
+        <button className="btn-dark" onClick={ openPicturePanel }>Change picture</button>
       </div>
       <div className="prof-info">
         <h2>{ user.username }</h2>

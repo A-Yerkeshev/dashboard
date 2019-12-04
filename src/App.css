@@ -60,6 +60,14 @@ header .fa-user {
   display: grid;
 }
 
+.btn-dark {
+  background-color: var(--dark-grey);
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: larger;
+}
+
 footer {
   padding: 10px;
   background-color: var(--dark-grey);
@@ -235,11 +243,6 @@ input {
 }
 
 .prof-pic > button {
-  background-color: var(--dark-grey);
-  color: white;
-  font-size: large;
-  border: none;
-  padding: 5px;
   margin: 5px;
 }
 
@@ -264,12 +267,17 @@ input {
   width: 90%;
   padding: 10px;
   overflow: hidden;
+  display: none;
 }
 
 #pic-panel > form {
   grid-template-areas:
     'input input input'
     'submit . .';
+}
+
+#pic-panel > button {
+  float: right;
 }
 
 #pic-panel-input {
@@ -295,10 +303,6 @@ input {
 
 #pic-panel-submit {
   grid-area: submit;
-  background-color: var(--dark-grey);
-  color: white;
-  border: none;
-  padding: 5px;
 }
 
 #pic-panel input {
