@@ -84,7 +84,7 @@ function Registration(props) {
     }
 
     // Send POST request to the server
-    axios.post('/register', newUser)
+    axios.post('/register/new-user', newUser)
       .then( (response) => {
         setCurrentUser(newUser);
         props.history.push('/');

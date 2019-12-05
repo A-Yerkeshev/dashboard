@@ -13,7 +13,7 @@ app.listen(port, () => {
 });
 
 // Handle a POST request from Registration component
-app.post('/register', (req, res) => {
+app.post('/register/new-user', (req, res) => {
 
   fs.readFile('src/users.json', (err, data) => {
     const json = JSON.parse(data);
@@ -25,5 +25,10 @@ app.post('/register', (req, res) => {
       }
     })
   })
+
+// Handle profile picture upload from Profile component
+app.post('/profile/change-pic', (req, res) => {
+
+})
 
 });

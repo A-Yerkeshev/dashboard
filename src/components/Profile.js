@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import axios from 'axios';
 
 function Profile(props) {
   const user = {
@@ -12,7 +13,7 @@ function Profile(props) {
   const picturePanel = () => {
     return (
       <div id="pic-panel">
-        <form className="container">
+        <form className="container" onSubmit={ changePicture }>
           <input id="pic-panel-input" type="file" name="pic" accept="image/*"/>
           <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture" />
         </form>
@@ -27,6 +28,21 @@ function Profile(props) {
 
   const closePicturePanel = () => {
     $('#pic-panel').hide();
+  }
+
+  const changePicture = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const image = data.get('pic');
+
+     axios.post('/profile', image)
+      .then( (response) => {
+        console.log('Successfully uploaded picture')
+        props.history.push('/');
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
   }
 
   return (
