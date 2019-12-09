@@ -35,7 +35,7 @@ function Profile(props) {
     const data = new FormData(event.target);
     const image = data.get('pic');
 
-     axios.post('/profile', image)
+     axios.post('/profile/change-pic', image)
       .then( (response) => {
         console.log('Successfully uploaded picture')
         props.history.push('/');
