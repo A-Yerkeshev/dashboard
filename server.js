@@ -42,7 +42,8 @@ app.post('/profile/change-pic', upload.single('pic'), (req, res) => {
       console.log(err);
       res.send(500);
     } else {
-      console.log('Image uploaded successfully');
+      console.log('Image uploaded successfully to ' + image);
+      res.send(200);
     }
   });
 

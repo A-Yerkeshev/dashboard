@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 
@@ -42,7 +43,7 @@ function Profile(props) {
         }
       })
       .then( (response) => {
-        props.history.push('/');
+        closePicturePanel();
       })
       .catch( (error) => {
         console.log(error);
@@ -66,4 +67,4 @@ function Profile(props) {
   )
 }
 
-export default Profile
+export default withRouter(Profile)
