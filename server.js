@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const fs = require('fs');
+const multer = require('multer');
 const app = express();
+const upload = multer({dest: '/public/'});
 
 const port = process.env.PORT || 3001;
 
@@ -32,14 +34,16 @@ app.post('/register/new-user', (req, res) => {
 });
 
 // Handle profile picture upload from Profile component
-app.post('/profile/change-pic', (req, res) => {
-  const image = req.file;
+app.post('/profile/change-pic', upload.single('pic'), (req, res) => {
+  const image = __dirname + '/public/' + req.file.filename + '.png';
 
-  fs.writeFile('public/1.png', image, 'binary', (err, res) => {
+  fs.rename(req.file.path, image, (err) => {
     if (err) {
-      console.log('Could not save file. Error: ' + err);
+      console.log(err);
+      res.send(500);
     } else {
-      console.log('Image public/1.png successfully saved');
+      console.log('Image uploaded successfully');
     }
-  })
+  });
+
 });

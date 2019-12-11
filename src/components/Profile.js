@@ -33,11 +33,15 @@ function Profile(props) {
   const changePicture = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
-    const image = data.get('pic');
 
-     axios.post('/profile/change-pic', image)
+     axios.post('/profile/change-pic', data, {
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+        }
+      })
       .then( (response) => {
-        console.log('Successfully uploaded picture')
         props.history.push('/');
       })
       .catch( (error) => {
