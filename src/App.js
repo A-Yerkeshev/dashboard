@@ -93,7 +93,9 @@ function App() {
       )
       profileInfo = (
         <div id="prof-head">
-          <h3>Signed as <i className="fas fa-user"></i> { state.currentUser.username }</h3>
+          <h3>Signed as <img src={ process.env.PUBLIC_URL + state.currentUser.picture } />
+            { ' ' + state.currentUser.username }
+          </h3>
         </div>
       )
     }

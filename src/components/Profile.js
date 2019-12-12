@@ -8,7 +8,8 @@ function Profile(props) {
     id: 3,
     username: 'SomeTestUser',
     headline: 'The aim of my existance is the testing of Profile component',
-    password: 'waaaa'
+    password: 'waaaa',
+    picture: 'default.png'
   }
 
   const picturePanel = () => {
@@ -53,7 +54,7 @@ function Profile(props) {
   return (
     <div className="container profile">
       <div className="prof-pic">
-        <i className="fas fa-user"></i>
+        <img src={ process.env.PUBLIC_URL + user.picture } />
         <button className="btn-dark" onClick={ openPicturePanel }>Change picture</button>
       </div>
       <div className="prof-info">

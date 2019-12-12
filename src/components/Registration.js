@@ -80,7 +80,8 @@ function Registration(props) {
     const newUser = {
       id: Users.length + 1,
       username,
-      password
+      password,
+      picture: '/public/default.png'
     }
 
     // Send POST request to the server

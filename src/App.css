@@ -49,6 +49,12 @@ nav > a {
   text-align: right;
 }
 
+#prof-head img {
+  border-radius: 50%;
+  height: 30px;
+  vertical-align: bottom;
+}
+
 header .fa-user {
   font-size: x-large;
   background-color: var(--theme-color);
@@ -232,14 +238,9 @@ input {
   text-align: center;
 }
 
-.prof-pic > .fa-user {
-  text-align: center;
-  margin: 10px auto auto auto;
-  font-size: 50px;
+.prof-pic > img {
+  margin: 10px 5px auto 5px;
   border-radius: 50%;
-  background-color: var(--theme-color);
-  color: white;
-  padding: 10px;
 }
 
 .prof-pic > button {
