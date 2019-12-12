@@ -274,7 +274,10 @@ input {
 #pic-panel > form {
   grid-template-areas:
     'input input input'
-    'submit . .';
+    'submit preview preview'
+    '. preview preview';
+  grid-column-gap: 10px;
+  margin-bottom: 10px;
 }
 
 #pic-panel > button {
@@ -308,5 +311,10 @@ input {
 
 #pic-panel input {
   width: 100%
+}
+
+#preview {
+  grid-area: preview;
+  max-width: 100%;
 }
 

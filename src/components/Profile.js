@@ -16,8 +16,9 @@ function Profile(props) {
     return (
       <div id="pic-panel">
         <form className="container" onSubmit={ changePicture }>
-          <input id="pic-panel-input" type="file" name="pic" accept="image/*"/>
+          <input id="pic-panel-input" onChange={ previewPicture } type="file" name="pic" accept="image/*"/>
           <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture" />
+          <img id="preview"/>
         </form>
         <button className="btn-dark" onClick={ closePicturePanel } >Cancel</button>
       </div>
@@ -30,6 +31,12 @@ function Profile(props) {
 
   const closePicturePanel = () => {
     $('#pic-panel').hide();
+  }
+
+  const previewPicture = (event) => {
+    const src = URL.createObjectURL(event.target.files[0]);
+
+    $('#preview').attr('src', src);
   }
 
   const changePicture = (event) => {
