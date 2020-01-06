@@ -4,13 +4,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 function Profile(props) {
-  const user = {
-    id: 3,
-    username: 'SomeTestUser',
-    headline: 'The aim of my existance is the testing of Profile component',
-    password: 'waaaa',
-    picture: 'default.png'
-  }
+  const user = props.user;
 
   const picturePanel = () => {
     return (
@@ -42,6 +36,8 @@ function Profile(props) {
   const changePicture = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
+    // Add current user id to form data
+    data.append('userId', user.id);
 
      axios.post('/profile/change-pic', data, {
         headers: {

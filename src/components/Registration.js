@@ -80,6 +80,7 @@ function Registration(props) {
     const newUser = {
       id: Users.length + 1,
       username,
+      headline: '',
       password,
       picture: '/public/default.png'
     }

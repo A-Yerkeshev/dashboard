@@ -22,12 +22,17 @@ app.listen(port, () => {
 app.post('/register/new-user', (req, res) => {
 
   fs.readFile('src/users.json', (err, data) => {
-    const json = JSON.parse(data);
-    json.push(req.body);
+    const users = JSON.parse(data);
 
-    fs.writeFile('src/users.json', JSON.stringify(json), (err, res) => {
+    users.push(req.body);
+
+    fs.writeFile('src/users.json', JSON.stringify(users), (err, res) => {
       if (err) {
         console.log('Could not register a user. Error: ' + err);
+        res.send(500);
+      } else {
+        console.log('New user num ' + req.body.id + ' successfully registered');
+        res.send(200);
       }
     })
   })
@@ -36,12 +41,32 @@ app.post('/register/new-user', (req, res) => {
 // Handle profile picture upload from Profile component
 app.post('/profile/change-pic', upload.single('pic'), (req, res) => {
   const image = __dirname + '/public/' + req.file.filename + '.png';
+  const userId = req.body.userId;
 
   fs.rename(req.file.path, image, (err) => {
     if (err) {
-      console.log(err);
+      console.log('Could not upload the image. Error: ' + err);
       res.send(500);
     } else {
+      // Set uploaded picture as active for user
+      fs.readFile('src/users.json', (err, data) => {
+        const users = JSON.parse(data);
+
+        for (let i=0; i<(users.length); i++) {
+          if (users[i].id == userId) {
+            users[i].picture = req.file.filename + '.png';
+            break;
+          }
+        }
+
+        fs.writeFile('src/users.json', JSON.stringify(users), (err, res) => {
+          if (err) {
+            console.log('Could not change user picture. Error: ' + err);
+          } else {
+            console.log('User ' + userId + ' profile picture successfully changed to' + req.file.filename + '.png');          }
+        })
+      })
+
       console.log('Image uploaded successfully to ' + image);
       res.send(200);
     }

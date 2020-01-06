@@ -236,11 +236,13 @@ input {
 
 .prof-pic {
   text-align: center;
+  margin: 5px;
 }
 
 .prof-pic > img {
-  margin: 10px 5px auto 5px;
+  margin: 0;
   border-radius: 50%;
+  width: 100%;
 }
 
 .prof-pic > button {
