@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import Posts from './components/Posts';
@@ -70,6 +70,20 @@ function App() {
     })
   }
 
+  const profileRoute = () => {
+    if (state.currentUser) {
+      return (
+        <Route path='/profile'>
+          <Profile user={ state.currentUser }/>
+        </Route>
+      )
+    } else {
+      return (
+        <Redirect to='/'/>
+      )
+    }
+  }
+
   const header = () => {
     let authLinks;
     let profileInfo;
@@ -127,21 +141,21 @@ function App() {
     <Router>
       <div className="container">
         { header() }
-        <Route exact path='/' render={ () => (
-          <Posts posts={ state.posts } addNewPosts={ addNewPosts }/>
-        )}/>
-        <Route path='/post/:postId' render={ () => (
-          <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>
-        )}/>
-        <Route path='/sign-in' render={ () => (
-          <Auth setCurrentUser={ setCurrentUser }/>
-        )}/>
-        <Route path='/register' render={ () => (
-          <Registration setCurrentUser={ setCurrentUser }/>
-        )}/>
-        <Route path='/profile' render={ () => (
-          <Profile user={ state.currentUser }/>
-        )}/>
+        <Switch>
+          <Route exact path='/'>
+            <Posts posts={ state.posts } addNewPosts={ addNewPosts }/>
+          </Route>
+          <Route path='/post/:postId'>
+            <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>
+          </Route>
+          <Route path='/sign-in'>
+            <Auth setCurrentUser={ setCurrentUser }/>
+          </Route>
+          <Route path='/register'>
+            <Registration setCurrentUser={ setCurrentUser }/>
+          </Route>
+        </Switch>
+        { profileRoute() }
         { footer() }
       </div>
     </Router>
