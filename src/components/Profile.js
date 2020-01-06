@@ -56,6 +56,25 @@ function Profile(props) {
       });
   }
 
+  const headline = () => {
+    if (user.headline.trim().length > 0) {
+      return (
+        <React.Fragemnt>
+          <h3>{ user.headline }</h3>
+          <button className="btn-dark headline-btn">
+            Change headline
+          </button>
+        </React.Fragemnt>
+      )
+    } else {
+      return (
+        <button className="btn-dark headline-btn">
+          Add headline
+        </button>
+      )
+    }
+  }
+
   return (
     <div className="container profile">
       <div className="prof-pic">
@@ -64,9 +83,9 @@ function Profile(props) {
       </div>
       <div className="prof-info">
         <h2>{ user.username }</h2>
-        <h3>{ user.headline }</h3>
-        <h4>Recent posts:</h4>
-        <h4>Recent comments:</h4>
+        { headline() }
+        <h4 className="recent-posts">Recent posts:</h4>
+        <h4 className="recent-comments">Recent comments:</h4>
       </div>
       { picturePanel() }
     </div>
