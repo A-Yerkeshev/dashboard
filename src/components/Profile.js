@@ -9,6 +9,7 @@ function Profile(props) {
   const picturePanel = () => {
     return (
       <div id="pic-panel">
+        <span className="error"></span>
         <form className="container" onSubmit={ changePicture }>
           <input id="pic-panel-input" onChange={ previewPicture } type="file" name="pic" accept="image/*"/>
           <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture" />
@@ -50,6 +51,7 @@ function Profile(props) {
         closePicturePanel();
       })
       .catch( (error) => {
+        $('#pic-panel > .error').text('Failed to change image. Check your internet connection');
         console.log(error);
       });
   }
