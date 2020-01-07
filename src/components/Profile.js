@@ -56,19 +56,49 @@ function Profile(props) {
       });
   }
 
-  const headline = () => {
+  const openHeadlineInput = () => {
+    $('.prof-info').css('grid-template-areas', `
+      'username username'
+      'headline-form headline-form'
+      'recent-posts .'
+      'recent-comments .'
+    `);
+    $('.prof-info > .headline-change').hide();
+    $('.prof-info > h3').hide();
+    $('.headline-form').css('display', 'grid');
+  }
+
+  const headlineInput = () => {
+    return (
+      <form className="headline-form" onSubmit={ changeHeadline }>
+        <input value={ user.headline } />
+        <button className="btn-dark headline-cancel">
+          Cancel
+        </button>
+        <button className="btn-dark headline-save" type="submit">
+          Save
+        </button>
+      </form>
+    )
+  }
+
+  const changeHeadline = (event) => {
+    event.preventDefault();
+    console.log(event.target)
+
+    const data = new FormData()
+  }
+
+  const headlineButton = () => {
     if (user.headline.trim().length > 0) {
       return (
-        <React.Fragemnt>
-          <h3>{ user.headline }</h3>
-          <button className="btn-dark headline-btn">
-            Change headline
-          </button>
-        </React.Fragemnt>
+        <button className="btn-dark headline-change" onClick={ openHeadlineInput }>
+          Change headline
+        </button>
       )
     } else {
       return (
-        <button className="btn-dark headline-btn">
+        <button className="btn-dark headline-change" onClick={ openHeadlineInput }>
           Add headline
         </button>
       )
@@ -83,7 +113,9 @@ function Profile(props) {
       </div>
       <div className="prof-info">
         <h2>{ user.username }</h2>
-        { headline() }
+        <h3>{ user.headline }</h3>
+        { headlineInput() }
+        { headlineButton() }
         <h4 className="recent-posts">Recent posts:</h4>
         <h4 className="recent-comments">Recent comments:</h4>
       </div>

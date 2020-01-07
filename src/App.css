@@ -254,7 +254,8 @@ input {
   display: grid;
   grid-template-areas:
     'username username'
-    'headline headline-btn'
+    'headline headline'
+    '. headline-change'
     'recent-posts .'
     'recent-comments .';
   height: fit-content;
@@ -262,17 +263,36 @@ input {
 
 .prof-info > h2 {
   border-bottom: solid 2px var(--theme-color);
-  margin-bottom: 5px;
   grid-area: username;
 }
 
 .prof-info > h3 {
-  font-weight: normal;
   grid-area: headline;
+  margin-bottom: 5px;
 }
 
-.headline-btn {
-  grid-area: headline-btn;
+.headline-form {
+  display: none;
+  grid-template-areas:
+    'headline-input headline-input'
+    'headline-cancel headline-save';
+  grid-column-gap: 5px;
+}
+
+.headline-form > input {
+  grid-area: headline-input;
+}
+
+.headline-change {
+  grid-area: headline-change;
+}
+
+.headline-save {
+  grid-area: headline-save;
+}
+
+.headline-cancel {
+  grid-area: headline-cancel;
 }
 
 .recent-posts {
