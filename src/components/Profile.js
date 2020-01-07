@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 
 function Profile(props) {
   const user = props.user;
+
+  const [state, setState] = useState({
+    id: 0,
+    username: '',
+    headline: '',
+    picture: ''
+  })
+
+  useEffect( () => {
+    setState({
+      id: user.id,
+      username: user.username,
+      headline: user.headline,
+      picture: user.picture
+    })
+  }, [])
 
   const picturePanel = () => {
     return (
@@ -38,7 +54,7 @@ function Profile(props) {
     event.preventDefault();
     const data = new FormData(event.target);
     // Add current user id to form data
-    data.append('userId', user.id);
+    data.append('userId', state.id);
 
      axios.post('/profile/change-pic', data, {
         headers: {
@@ -71,7 +87,7 @@ function Profile(props) {
   const headlineInput = () => {
     return (
       <form className="headline-form" onSubmit={ changeHeadline }>
-        <input value={ user.headline } />
+        <input value={ state.headline } onChange={ trackHeadlineChange }/>
         <button className="btn-dark headline-cancel">
           Cancel
         </button>
@@ -105,15 +121,19 @@ function Profile(props) {
     }
   }
 
+  const trackHeadlineChange = () => {
+
+  }
+
   return (
     <div className="container profile">
       <div className="prof-pic">
-        <img src={ process.env.PUBLIC_URL + user.picture } />
+        <img src={ process.env.PUBLIC_URL + state.picture } />
         <button className="btn-dark" onClick={ openPicturePanel }>Change picture</button>
       </div>
       <div className="prof-info">
-        <h2>{ user.username }</h2>
-        <h3>{ user.headline }</h3>
+        <h2>{ state.username }</h2>
+        <h3>{ state.headline }</h3>
         { headlineInput() }
         { headlineButton() }
         <h4 className="recent-posts">Recent posts:</h4>
