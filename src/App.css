@@ -281,6 +281,7 @@ input {
 
 .headline-form > input {
   grid-area: headline-input;
+  margin-top: 5px;
 }
 
 .headline-change {

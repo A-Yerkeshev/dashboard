@@ -28,10 +28,10 @@ function Profile(props) {
         <span className="error"></span>
         <form className="container" onSubmit={ changePicture }>
           <input id="pic-panel-input" onChange={ previewPicture } type="file" name="pic" accept="image/*"/>
-          <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture" />
+          <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture"/>
           <img id="preview"/>
         </form>
-        <button className="btn-dark" onClick={ closePicturePanel } >Cancel</button>
+        <button className="btn-dark" onClick={ closePicturePanel }>Cancel</button>
       </div>
     )
   }
@@ -52,24 +52,25 @@ function Profile(props) {
 
   const changePicture = (event) => {
     event.preventDefault();
+
     const data = new FormData(event.target);
     // Add current user id to form data
     data.append('userId', state.id);
 
-     axios.post('/profile/change-pic', data, {
-        headers: {
-          'accept': 'application/json',
-          'Accept-Language': 'en-US,en;q=0.8',
-          'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-        }
-      })
-      .then( (response) => {
-        closePicturePanel();
-      })
-      .catch( (error) => {
-        $('#pic-panel > .error').text('Failed to change image. Check your internet connection');
-        console.log(error);
-      });
+    axios.post('/profile/change-picture', data, {
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+      }
+    })
+    .then( (response) => {
+      closePicturePanel();
+    })
+    .catch( (error) => {
+      $('#pic-panel > .error').text('Failed to change image. Check your internet connection');
+      console.log(error);
+    });
   }
 
   const openHeadlineInput = () => {
@@ -87,7 +88,7 @@ function Profile(props) {
   const headlineInput = () => {
     return (
       <form className="headline-form" onSubmit={ changeHeadline }>
-        <input value={ state.headline } onChange={ trackHeadlineChange }/>
+        <input value={ state.headline } name="headline" onChange={ trackHeadlineChange }/>
         <button className="btn-dark headline-cancel">
           Cancel
         </button>
@@ -100,9 +101,15 @@ function Profile(props) {
 
   const changeHeadline = (event) => {
     event.preventDefault();
-    console.log(event.target)
 
-    const data = new FormData()
+    const data = {
+      headline: event.target.headline.value
+    }
+
+    axios.post('/profile/change-headline', data)
+    .catch( (error) => {
+      console.log(error)
+    })
   }
 
   const headlineButton = () => {
@@ -121,8 +128,11 @@ function Profile(props) {
     }
   }
 
-  const trackHeadlineChange = () => {
-
+  const trackHeadlineChange = (event) => {
+    setState({
+      ...state,
+      headline: event.target.value
+    });
   }
 
   return (

@@ -11,14 +11,14 @@ app.use(bodyParser.urlencoded({
   limit: '100mb',
   extended: true,
   parameterLimit: 100000
-}));
+}))
 app.use(bodyParser.json({limit: '100mb'}));
 
 app.listen(port, () => {
   console.log(`Backend is listening on port ${port}`);
-});
+})
 
-// Handle a POST request from Registration component
+// Handle new user registration
 app.post('/register/new-user', (req, res) => {
 
   fs.readFile('src/users.json', (err, data) => {
@@ -36,10 +36,10 @@ app.post('/register/new-user', (req, res) => {
       }
     })
   })
-});
+})
 
 // Handle profile picture upload from Profile component
-app.post('/profile/change-pic', upload.single('pic'), (req, res) => {
+app.post('/profile/change-picture', upload.single('pic'), (req, res) => {
   const image = __dirname + '/public/' + req.file.filename + '.png';
   const userId = req.body.userId;
 
@@ -70,6 +70,10 @@ app.post('/profile/change-pic', upload.single('pic'), (req, res) => {
       console.log('Image uploaded successfully to ' + image);
       res.send(200);
     }
-  });
+  })
+})
 
-});
+// Handle user's headline change from Profile component
+app.post('/profile/change-headline', (req, res) => {
+  console.log(req.body.headline)
+})
