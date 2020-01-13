@@ -154,12 +154,12 @@ function App() {
           <Route path='/register'>
             <Registration setCurrentUser={ setCurrentUser }/>
           </Route>
+          { profileRoute() }
         </Switch>
-        { profileRoute() }
         { footer() }
       </div>
     </Router>
-  );
+  )
 }
 
 export default App;

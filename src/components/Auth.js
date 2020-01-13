@@ -6,12 +6,14 @@ import Users from '../users';
 function Auth(props) {
   const setCurrentUser = props.setCurrentUser;
 
-  const clearAlerts = () => {
+  const clearAlerts = (event) => {
     $('#sign-error').text('');
     $('#username').css('color', 'black');
     $('#username').css('background-color', 'white');
+    $('#username').css('display', 'inline-block');
     $('#password').css('color', 'black');
     $('#password').css('background-color', 'white');
+    $('#password').css('display', 'inline-block');
   }
 
   const toggleEyeButton = (fieldId) => {
@@ -86,7 +88,7 @@ function Auth(props) {
         <input type="text" name="username" id="username"/><br/>
         Password:<br/>
         <input type="password" name="password" id="password"/>{ toggleEyeButton('password') }<br/>
-        <button className="btn-submit" type="submit" value="Submit">Sign In</button>
+        <button className="btn-submit" type="submit">Sign In</button>
       </form>
       <h3>Don't have account yet? <Link to='/register'>Register</Link></h3>
     </div>

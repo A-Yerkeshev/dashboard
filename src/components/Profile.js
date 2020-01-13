@@ -31,6 +31,7 @@ function Profile(props) {
           <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture"/>
           <img id="preview"/>
         </form>
+        <b>Max size: 100mb</b>
         <button className="btn-dark" onClick={ closePicturePanel }>Cancel</button>
       </div>
     )
