@@ -89,7 +89,7 @@ function Profile(props) {
     return (
       <form className="headline-form" onSubmit={ changeHeadline }>
         <input value={ state.headline } name="headline" onChange={ trackHeadlineChange }/>
-        <button className="btn-dark headline-cancel">
+        <button className="btn-dark headline-cancel" onClick={ cancelHeadlineChange }>
           Cancel
         </button>
         <button className="btn-dark headline-save" type="submit">
@@ -111,6 +111,21 @@ function Profile(props) {
     .catch( (error) => {
       console.log(error)
     })
+  }
+
+  const cancelHeadlineChange = (event) => {
+    event.preventDefault();
+
+    $('.prof-info').css('grid-template-areas', `
+      'username username'
+      'headline headline'
+      '. headline-change'
+      'recent-posts .'
+      'recent-comments .'
+    `);
+    $('.headline-form').css('display', 'none');
+    $('.prof-info > .headline-change').show();
+    $('.prof-info > h3').show();
   }
 
   const headlineButton = () => {
