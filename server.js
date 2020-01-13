@@ -26,7 +26,7 @@ app.post('/register/new-user', (req, res) => {
 
     users.push(req.body);
 
-    fs.writeFile('src/users.json', JSON.stringify(users), (err, res) => {
+    fs.writeFile('src/users.json', JSON.stringify(users), (err) => {
       if (err) {
         console.log('Could not register a user. Error: ' + err);
         res.send(500);
@@ -59,11 +59,13 @@ app.post('/profile/change-picture', upload.single('pic'), (req, res) => {
           }
         }
 
-        fs.writeFile('src/users.json', JSON.stringify(users), (err, res) => {
+        fs.writeFile('src/users.json', JSON.stringify(users), (err) => {
           if (err) {
             console.log('Could not change user picture. Error: ' + err);
+            res.send(500)
           } else {
-            console.log('User ' + userId + ' profile picture successfully changed to' + req.file.filename + '.png');          }
+            console.log('User ' + userId + ' profile picture successfully changed to' + req.file.filename + '.png');
+          }
         })
       })
 
