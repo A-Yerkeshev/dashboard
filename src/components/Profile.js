@@ -103,7 +103,8 @@ function Profile(props) {
     event.preventDefault();
 
     const data = {
-      headline: event.target.headline.value
+      headline: event.target.headline.value,
+      userId: state.id
     }
 
     axios.post('/profile/change-headline', data)

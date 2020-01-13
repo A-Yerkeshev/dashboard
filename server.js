@@ -62,20 +62,40 @@ app.post('/profile/change-picture', upload.single('pic'), (req, res) => {
         fs.writeFile('src/users.json', JSON.stringify(users), (err) => {
           if (err) {
             console.log('Could not change user picture. Error: ' + err);
-            res.send(500)
+            res.send(500);
           } else {
-            console.log('User ' + userId + ' profile picture successfully changed to' + req.file.filename + '.png');
+            console.log('Image uploaded successfully to ' + image);
+            res.send(200);
           }
         })
       })
-
-      console.log('Image uploaded successfully to ' + image);
-      res.send(200);
     }
   })
 })
 
 // Handle user's headline change from Profile component
 app.post('/profile/change-headline', (req, res) => {
-  console.log(req.body.headline)
+  const headline = req.body.headline;
+  const userId = req.body.userId;
+
+  fs.readFile('src/users.json', (err, data) => {
+    const users = JSON.parse(data);
+
+    for (let i=0; i<(users.length); i++) {
+      if (users[i].id == userId) {
+        users[i].headline = headline;
+        break;
+      }
+    }
+
+    fs.writeFile('src/users.json', JSON.stringify(users), (err) => {
+      if (err) {
+        console.log('Could not change user headline. Error: ' + err);
+        res.send(500);
+      } else {
+        console.log('User ' + userId + ' headline successfully changed to ' + headline);
+        res.send(200);
+      }
+    })
+  })
 })
