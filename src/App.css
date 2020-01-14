@@ -74,6 +74,14 @@ header .fa-user {
   font-size: larger;
 }
 
+.btn-blue {
+  background-color: var(--theme-color);
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: larger;
+}
+
 footer {
   padding: 10px;
   background-color: var(--dark-grey);
@@ -100,6 +108,35 @@ footer a {
   text-align: center;
   font-weight: bold;
   margin: 10px;
+}
+
+#new-post-form {
+  background-color: var(--dark-grey);
+  padding: 5px;
+}
+
+#new-post-form > input {
+  margin: 0;
+}
+#new-post-form > textarea {
+  display: none;
+  margin-bottom: 10px;
+  width: 100%;
+  vertical-align: bottom;
+  min-height: 150px;
+  font-style: italic;
+  font-size: x-large;
+  padding-left: 5px;
+}
+
+#new-post-form > button {
+  margin-left: 15px;
+  float: right;
+}
+
+#new-post-form > .btn-dark {
+  display: none;
+  padding-top: 0;
 }
 
 /* Post component */
@@ -217,15 +254,6 @@ input {
 
 .fa-eye {
   display: none;
-}
-
-.btn-submit {
-  background-color: var(--theme-color);
-  padding: 5px;
-  font-size: larger;
-  border: none;
-  color: white;
-  margin: 10px;
 }
 
 /* Profile component */

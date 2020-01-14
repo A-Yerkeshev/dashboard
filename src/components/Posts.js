@@ -44,14 +44,32 @@ function Posts(props) {
   const newPost = () => {
     if (user) {
       return (
-        <form>
-          <input placeholder="Add new post" />
-          <button type="submit">Add</button>
+        <form id="new-post-form">
+          <input id="new-post-input" placeholder="Add new post" onFocus={ expandInputField } />
+          <textarea id="new-post-textarea" />
+          <button className="btn-blue" type="submit">Publish</button>
+          <button className="btn-dark" onClick={ shrinkInputField }>
+            <i className="fas fa-angle-double-up fa-2x"></i>
+          </button>
         </form>
       )
     } else {
       return;
     }
+  }
+
+  const expandInputField = () => {
+    $('#new-post-input').hide();
+    $('#new-post-textarea').show();
+    $('#new-post-form > .btn-dark').show();
+  }
+
+  const shrinkInputField = (event) => {
+    event.preventDefault();
+
+    $('#new-post-textarea').hide();
+    $('#new-post-form > .btn-dark').hide();
+    $('#new-post-input').show();
   }
 
   return (

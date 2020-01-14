@@ -117,7 +117,7 @@ function Registration(props) {
         <input type="password" name="password" id="password"/>{ toggleEyeButton('password') }<br/>
         Repeat password:<br/>
         <input type="password" name="rep-password" id="rep-password"/>{ toggleEyeButton('rep-password') }<br/>
-        <button className="btn-submit" type="submit" value="Submit">Register</button>
+        <button className="btn-submit btn-blue" type="submit" value="Submit">Register</button>
       </form>
       <h3>Already have account? <Link to='/sign-in'>Sign in</Link></h3>
     </div>

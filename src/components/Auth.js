@@ -37,7 +37,6 @@ function Auth(props) {
   }
 
   const signIn = (event) => {
-    console.log(event.target)
     event.preventDefault();
 
     const data = new FormData(event.target);
@@ -93,7 +92,7 @@ function Auth(props) {
         <input type="text" name="username" id="username" /><br/>
         Password:<br/>
         <input type="password" name="password" id="password" />{ toggleEyeButton('password') }<br/>
-        <button className="btn-submit" type="submit">Sign In</button>
+        <button className="btn-blue btn-submit" type="submit">Sign In</button>
       </form>
       <h3>Don't have account yet? <Link to='/register'>Register</Link></h3>
     </div>
