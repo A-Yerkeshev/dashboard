@@ -10,10 +10,8 @@ function Auth(props) {
     $('#sign-error').text('');
     $('#username').css('color', 'black');
     $('#username').css('background-color', 'white');
-    $('#username').css('display', 'inline-block');
     $('#password').css('color', 'black');
     $('#password').css('background-color', 'white');
-    $('#password').css('display', 'inline-block');
   }
 
   const toggleEyeButton = (fieldId) => {
@@ -39,6 +37,7 @@ function Auth(props) {
   }
 
   const signIn = (event) => {
+    console.log(event.target)
     event.preventDefault();
 
     const data = new FormData(event.target);
@@ -79,15 +78,19 @@ function Auth(props) {
 
   }
 
+  const preventKeyDown = (event) => {
+    event.preventDefault();
+  }
+
   return (
     <div className="container log-page">
       <h2>Sign In to your account</h2>
       <span id="sign-error" className="error"></span>
-      <form className="log-form" onSubmit={ signIn } onClick={ clearAlerts }>
+      <form className="log-form" onSubmit={ signIn } onKeyDown={ preventKeyDown } onClick={ clearAlerts }>
         Username:<br/>
-        <input type="text" name="username" id="username"/><br/>
+        <input type="text" name="username" id="username" /><br/>
         Password:<br/>
-        <input type="password" name="password" id="password"/>{ toggleEyeButton('password') }<br/>
+        <input type="password" name="password" id="password" />{ toggleEyeButton('password') }<br/>
         <button className="btn-submit" type="submit">Sign In</button>
       </form>
       <h3>Don't have account yet? <Link to='/register'>Register</Link></h3>
