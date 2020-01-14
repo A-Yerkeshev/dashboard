@@ -143,7 +143,7 @@ function App() {
         { header() }
         <Switch>
           <Route exact path='/'>
-            <Posts posts={ state.posts } addNewPosts={ addNewPosts }/>
+            <Posts posts={ state.posts } user={ state.currentUser } addNewPosts={ addNewPosts }/>
           </Route>
           <Route path='/post/:postId'>
             <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>

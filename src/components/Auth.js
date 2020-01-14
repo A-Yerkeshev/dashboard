@@ -78,15 +78,17 @@ function Auth(props) {
 
   }
 
-  const preventKeyDown = (event) => {
-    event.preventDefault();
+  const preventEnterKeyDown = (event) => {
+    if (event.keyCode == 13) {
+      event.preventDefault();
+    }
   }
 
   return (
     <div className="container log-page">
       <h2>Sign In to your account</h2>
       <span id="sign-error" className="error"></span>
-      <form className="log-form" onSubmit={ signIn } onKeyDown={ preventKeyDown } onClick={ clearAlerts }>
+      <form className="log-form" onSubmit={ signIn } onKeyDown={ preventEnterKeyDown } onClick={ clearAlerts }>
         Username:<br/>
         <input type="text" name="username" id="username" /><br/>
         Password:<br/>

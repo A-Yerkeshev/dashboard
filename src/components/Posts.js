@@ -7,6 +7,7 @@ import Post from './Post';
 
 function Posts(props) {
   const posts = props.posts;
+  const user = props.user;
   const addNewPosts = props.addNewPosts;
 
   // Load more posts when bottom of the page is reached
@@ -39,8 +40,23 @@ function Posts(props) {
     return result
   }
 
+  // Display piece of interface for adding new post
+  const newPost = () => {
+    if (user) {
+      return (
+        <form>
+          <input placeholder="Add new post" />
+          <button type="submit">Add</button>
+        </form>
+      )
+    } else {
+      return;
+    }
+  }
+
   return (
     <div className="container posts-container">
+      { newPost() }
       { displayPosts() }
       <div className="fa-3x spinner">
         <i className="fas fa-spinner fa-spin"></i>
