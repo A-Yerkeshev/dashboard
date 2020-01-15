@@ -16,7 +16,7 @@ function Posts(props) {
   useBottomScrollListener( () => {
     if (posts.length < 100) {
       $('.spinner').show();
-      axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + (posts.length/10 + 1))
+      axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + ((posts.length - customPostsNum)/10 + 1))
         .then((response) => {
           // Clean error line
           $('.error-bottom').text('');
