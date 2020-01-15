@@ -78,7 +78,7 @@ function Auth(props) {
   }
 
   const preventEnterKeyDown = (event) => {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       event.preventDefault();
     }
   }

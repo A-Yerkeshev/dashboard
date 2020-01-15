@@ -13,7 +13,8 @@ function App() {
 
   const [state, setState] = useState({
     currentUser: null,
-    posts: []
+    posts: [],
+    customPostsNum: 0
   })
 
   useEffect( () => {
@@ -46,7 +47,7 @@ function App() {
     post.date = date;
   }
 
-  const addNewPosts = (posts) => {
+  const loadNewPosts = (posts) => {
     posts.forEach( (post) => {
       generateRandomData(post)
     })
@@ -67,6 +68,14 @@ function App() {
     setState({
       ...state,
       currentUser: null
+    })
+  }
+
+  const addCustomPost = (post) =>{
+    setState({
+      ...state,
+      posts: [post, ...state.posts],
+      customPostsNum: state.customPostsNum + 1
     })
   }
 
@@ -143,7 +152,8 @@ function App() {
         { header() }
         <Switch>
           <Route exact path='/'>
-            <Posts posts={ state.posts } user={ state.currentUser } addNewPosts={ addNewPosts }/>
+            <Posts posts={ state.posts } user={ state.currentUser } customPostsNum={ state.customPostsNum }
+              loadNewPosts={ loadNewPosts } addCustomPost={ addCustomPost }/>
           </Route>
           <Route path='/post/:postId'>
             <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>
