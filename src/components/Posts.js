@@ -95,8 +95,10 @@ function Posts(props) {
       id: customPostsNum + 101,
       title,
       body,
+      author: user.username,
       likes: 0,
       dislikes: 0,
+      comments: 0,
       date: new Date().toDateString()
     }
 

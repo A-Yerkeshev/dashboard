@@ -8,6 +8,7 @@ function Post(props) {
   const likes = props.post.likes;
   const dislikes = props.post.dislikes;
   const date = props.post.date;
+  const comments = props.post.comments;
 
   return (
     <Link to={ '/post/' + postId } className="post-link">
@@ -17,7 +18,7 @@ function Post(props) {
         <span>{ date }</span><br/>
         <i className="far fa-thumbs-up fa-2x"></i> { likes }
         <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
-        <i className="far fa-comment fa-2x"></i> 5
+        <i className="far fa-comment fa-2x"></i> { comments }
       </div>
     </Link>
   )

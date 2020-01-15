@@ -45,6 +45,7 @@ function App() {
     post.likes = likes;
     post.dislikes = dislikes;
     post.date = date;
+    post.comments = 5;
   }
 
   const loadNewPosts = (posts) => {
