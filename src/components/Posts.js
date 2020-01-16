@@ -14,29 +14,11 @@ function Posts(props) {
 
   // Load more posts when bottom of the page is reached
   useBottomScrollListener( () => {
-    const userId = (posts.length - customPostsNum)/10 + 1;
+    if (posts.length >= 10) {
+      loadNewPosts();
+    }
+  })
 
-    if (posts.length < 100) {
-      $('.spinner').show();
-      axios.get(`https://jsonplaceholder.typicode.com/users/` + userId)
-        .then((response) => {
-          const username = response.data.username
-        })
-
-      axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + userId)
-        .then((response) => {
-          // Clean error line
-          $('.error-bottom').text('');
-          loadNewPosts(response.data);
-        })
-        .catch( (error) => {
-          $('.error-bottom').text('Could not load more posts. Check your internet connection.');
-        })
-        .finally( () => {
-          $('.spinner').hide();
-        });
-      }
-  });
 
   // Function that makes JSX templates from posts data
   const displayPosts = () => {

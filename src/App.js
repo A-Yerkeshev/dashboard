@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios';
+import $ from 'jquery';
 
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
@@ -18,12 +19,8 @@ function App() {
   })
 
   useEffect( () => {
-
     // Get fist 10 posts from JSONPlaceholder
-    axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
-      .then( (response) => {
-        loadNewPosts(response.data);
-      })
+    loadNewPosts();
   }, [])
 
   // Randomly generate date, number of likes dislikes and comments for the post
@@ -41,14 +38,39 @@ function App() {
     post.comments = 5;
   }
 
-  const loadNewPosts = (posts) => {
-    posts.forEach( (post) => {
-      generateRandomData(post);
-    })
-    setState({
-      ...state,
-      posts: [...state.posts, ...posts]
-    })
+  const loadNewPosts = () => {
+    const userId = (state.posts.length - state.customPostsNum)/10 + 1;
+
+    if (state.posts.length < 100) {
+      $('.spinner').show();
+
+      // First get the username of author
+      axios.get(`https://jsonplaceholder.typicode.com/users/` + userId)
+        .then((response) => {
+          const username = response.data.username;
+
+          // After get the posts
+          axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + userId)
+            .then((response) => {
+              // Clean error line
+              $('.error-bottom').text('');
+              response.data.forEach((post) => {
+                generateRandomData(post);
+                post.author = username;
+              })
+              setState({
+                ...state,
+                posts: [...state.posts, ...response.data]
+              })
+            })
+        })
+        .catch((error) => {
+          $('.error-bottom').text('Could not load more posts. Check your internet connection.');
+        })
+        .finally(() => {
+          $('.spinner').hide();
+        })
+      }
   }
 
   const setCurrentUser = (user) => {
