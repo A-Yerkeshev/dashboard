@@ -99,3 +99,23 @@ app.post('/profile/change-headline', (req, res) => {
     })
   })
 })
+
+// Add new post
+app.post('/posts/new-post', (req, res) => {
+
+  fs.readFile('src/posts.json', (err, data) => {
+    const posts = JSON.parse(data);
+
+    posts.push(req.body);
+
+    fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
+      if (err) {
+        console.log('Could not add new post. Error: ' + err);
+        res.send(500);
+      } else {
+        console.log('New post num ' + req.body.id + ' successfully added');
+        res.send(200);
+      }
+    })
+  })
+})

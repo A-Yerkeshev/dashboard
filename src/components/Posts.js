@@ -98,6 +98,7 @@ function Posts(props) {
   return (
     <div className="container posts-container">
       { newPost() }
+      <span className="error-top"></span>
       { displayPosts() }
       <div className="fa-3x spinner">
         <i className="fas fa-spinner fa-spin"></i>

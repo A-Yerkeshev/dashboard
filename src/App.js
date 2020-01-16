@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
+import customPosts from './posts.json'
 
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
@@ -14,8 +15,8 @@ function App() {
 
   const [state, setState] = useState({
     currentUser: null,
-    posts: [],
-    customPostsNum: 0
+    posts: customPosts,
+    customPostsNum: customPosts.length
   })
 
   useEffect( () => {
@@ -87,12 +88,20 @@ function App() {
     })
   }
 
-  const addCustomPost = (post) =>{
-    setState({
-      ...state,
-      posts: [post, ...state.posts],
-      customPostsNum: state.customPostsNum + 1
-    })
+  const addCustomPost = (post) => {
+    $('.error-top').text('');
+    axios.post('/posts/new-post', post)
+      .then((reposne) => {
+        setState({
+          ...state,
+          posts: [post, ...state.posts],
+          customPostsNum: state.customPostsNum + 1
+        })
+      })
+      .catch((error) => {
+        $('.error-top').text('Failed to publish new post. Check your internet connection.');
+        console.log(error)
+      })
   }
 
   const profileRoute = () => {
