@@ -1,6 +1,5 @@
 import React from 'react';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
-import axios from 'axios';
 import $ from 'jquery';
 
 import Post from './Post';

@@ -15,12 +15,21 @@ function PostPage(props) {
   })
 
   const loadComments = (post) => {
+    $('.spinner').show();
+
     axios.get(`https://jsonplaceholder.typicode.com/posts/1/comments?postId=` + postId)
-      .then( (response) => {
+      .then((response) => {
+        $('.error-bottom').text('');
         setState({
           post,
           comments: response.data
         })
+      })
+      .catch((error) => {
+        $('.error-bottom').text('Could not load comments. Check your internet connection.');
+      })
+      .finally(() => {
+        $('.spinner').hide();
       })
   }
 
@@ -40,26 +49,32 @@ function PostPage(props) {
 
     // Otherwise request it from server
     if (state.post === undefined) {
-      $('.no-post').hide();
-      $('.spinner').show();
-      axios.get(`https://jsonplaceholder.typicode.com/posts/` + postId)
-        .then( (response) => {
-          const post = response.data;
-          generateRandomData(post);
-          setState({
-            post,
-            comments: state.comments
-          })
-          loadComments(post);
-        })
-        .catch( (error) => {
-          $('.no-post').show();
-        })
-        .finally( () => {
-          $('.spinner').hide();
-        })
-      }
+      if (postId <= 100) {
+        $('.spinner').show();
 
+        const authorId = Math.ceil(postId * 0.1)
+        axios.get(`https://jsonplaceholder.typicode.com/users/` + authorId)
+          .then((response) => {
+            const author = response.data.name;
+
+            axios.get(`https://jsonplaceholder.typicode.com/posts/` + postId)
+              .then((response) => {
+                const post = response.data;
+
+                post.author = author;
+                generateRandomData(post);
+                setState({
+                  post,
+                  comments: state.comments
+                })
+                loadComments(post);
+              })
+          })
+          .catch( (error) => {
+            console.log('Cannot load post. Error: ' + error)
+          })
+        }
+      }
   }, [postId, posts])
 
   const displayPost = () => {
@@ -71,7 +86,10 @@ function PostPage(props) {
       )
     } else {
       return (
-        <React.Fragment></React.Fragment>
+        <div className="no-post">
+          <h3>Sorry, we could not find this post</h3>
+          <b>Try to reload the page and check your internet connection</b>
+        </div>
       )
     }
 
@@ -95,14 +113,11 @@ function PostPage(props) {
   return (
     <div className="post-page container">
       { displayPost() }
-      <div className="no-post">
-        <h3>Sorry, we could not find this post</h3>
-        <b>Try to reload the page and check your internet connection</b>
-      </div>
       { displayComments() }
       <div className="fa-3x spinner">
         <i className="fas fa-spinner fa-spin"></i>
       </div>
+      <span className="error-bottom"></span>
     </div>
   );
 }
