@@ -22,18 +22,11 @@ function App() {
     // Get fist 10 posts from JSONPlaceholder
     axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1`)
       .then( (response) => {
-        // Generate random data for posts
-        response.data.forEach((post) => {
-          generateRandomData(post);
-        })
-        setState({
-          ...state,
-          posts: [...state.posts, ...response.data]
-        })
+        loadNewPosts(response.data);
       })
   }, [])
 
-  // Function that randomly generates date, number of likes and dislikes for the post
+  // Randomly generate date, number of likes dislikes and comments for the post
   const generateRandomData = (post) => {
     const likes = Math.floor(Math.random() * 101);
     const dislikes = Math.floor(Math.random() * -101);
@@ -50,7 +43,7 @@ function App() {
 
   const loadNewPosts = (posts) => {
     posts.forEach( (post) => {
-      generateRandomData(post)
+      generateRandomData(post);
     })
     setState({
       ...state,
@@ -157,7 +150,7 @@ function App() {
               loadNewPosts={ loadNewPosts } addCustomPost={ addCustomPost }/>
           </Route>
           <Route path='/post/:postId'>
-            <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>
+            <PostPage posts={ state.posts } />
           </Route>
           <Route path='/sign-in'>
             <Auth setCurrentUser={ setCurrentUser }/>

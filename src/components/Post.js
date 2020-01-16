@@ -5,6 +5,7 @@ function Post(props) {
   const postId = props.post.id;
   const title = props.post.title.charAt(0).toUpperCase() + props.post.title.slice(1);
   const body = props.post.body.charAt(0).toUpperCase() + props.post.body.slice(1);
+  const author = props.post.author;
   const likes = props.post.likes;
   const dislikes = props.post.dislikes;
   const date = props.post.date;
@@ -16,6 +17,7 @@ function Post(props) {
         <h3>{ title }</h3><br/>
         <p>{ body }</p><br/>
         <span>{ date }</span><br/>
+        <span>{ author }</span><br/>
         <i className="far fa-thumbs-up fa-2x"></i> { likes }
         <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
         <i className="far fa-comment fa-2x"></i> { comments }
