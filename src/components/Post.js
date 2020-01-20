@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import PostEdit from './PostEdit';
+
 function Post(props) {
   const postId = props.post.id;
   const userId = props.post.userId
