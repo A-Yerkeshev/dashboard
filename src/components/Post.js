@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 
 import PostEdit from './PostEdit';
 
@@ -14,6 +14,8 @@ function Post(props) {
   const date = props.post.date;
   const comments = props.post.comments;
   const user = props.user;
+
+  let { path, url } = useRouteMatch();
 
   const editDeleteButtons = () => {
     if (user) {
@@ -33,18 +35,18 @@ function Post(props) {
   }
 
   return (
-    <Link to={ '/post/' + postId } className="post-link">
-      <div className="post">
+    <div className="post">
+      <Link to={ '/post/' + postId } className="post-link">
         <h3>{ title }</h3><br/>
         <p>{ body }</p><br/>
-        <span>{ date }</span><br/>
-        <span>{ author }</span><br/>
-        <i className="far fa-thumbs-up fa-2x"></i> { likes }
-        <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
-        <i className="far fa-comment fa-2x"></i> { comments }
-        { editDeleteButtons() }
-      </div>
-    </Link>
+      </Link>
+      <span>{ date }</span><br/>
+      <span>{ author }</span><br/>
+      <i className="far fa-thumbs-up fa-2x"></i> { likes }
+      <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
+      <i className="far fa-comment fa-2x"></i> { comments }
+      { editDeleteButtons() }
+    </div>
   )
 }
 

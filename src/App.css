@@ -180,15 +180,15 @@ footer a {
   text-decoration: none;
 }
 
-.post > h3 {
+.post h3 {
   border-bottom: var(--dark-grey) 1px double;
 }
 
-.post > p {
+.post p {
   text-indent: 1em;
 }
 
-.post > span {
+.post span {
   float: right;
   font-weight: bold;
 }
