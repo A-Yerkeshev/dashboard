@@ -23,7 +23,7 @@ function Post(props) {
         return (
           <React.Fragment>
             <i className="fas fa-trash fa-2x"></i>
-            <i className="fas fa-edit fa-2x"></i>
+            <Link to={`/post/${postId}/edit`}><i className="fas fa-edit fa-2x"></i></Link>
           </React.Fragment>
         )
       } else {
@@ -35,18 +35,26 @@ function Post(props) {
   }
 
   return (
-    <div className="post">
-      <Link to={ '/post/' + postId } className="post-link">
-        <h3>{ title }</h3><br/>
-        <p>{ body }</p><br/>
-      </Link>
-      <span>{ date }</span><br/>
-      <span>{ author }</span><br/>
-      <i className="far fa-thumbs-up fa-2x"></i> { likes }
-      <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
-      <i className="far fa-comment fa-2x"></i> { comments }
-      { editDeleteButtons() }
-    </div>
+    <Switch>
+      <Route exact path={path}>
+        <div className="post">
+          <Link to={ '/post/' + postId } className="post-link">
+            <h3>{ title }</h3><br/>
+            <p>{ body }</p><br/>
+          </Link>
+          <span>{ date }</span><br/>
+          <span>{ author }</span><br/>
+          <i className="far fa-thumbs-up fa-2x"></i> { likes }
+          <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
+          <i className="far fa-comment fa-2x"></i> { comments }
+          { editDeleteButtons() }
+        </div>
+      </Route>
+      <Route path={`${path}/edit`}>
+        <PostEdit />
+      </Route>
+    </Switch>
+
   )
 }
 

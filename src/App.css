@@ -171,9 +171,12 @@ footer a {
   box-shadow: var(--dark-grey) 0 0 1px 1px;
 }
 
+.post a {
+  color: black;
+}
+
 .post-link {
   background-color: rgba(0, 0, 0, 0);
-  color: black;
 }
 
 .post-link:hover {
@@ -193,13 +196,13 @@ footer a {
   font-weight: bold;
 }
 
-.post > i {
+.post i {
   margin-left: 15px;
   cursor: pointer;
 }
 
-.post > .fa-edit,
-.post > .fa-trash {
+.post .fa-edit,
+.post .fa-trash {
   float: right;
 }
 
