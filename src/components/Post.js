@@ -13,6 +13,7 @@ function Post(props) {
   const dislikes = props.post.dislikes;
   const date = props.post.date;
   const comments = props.post.comments;
+  const post = props.post;
   const user = props.user;
 
   let { path, url } = useRouteMatch();
@@ -51,7 +52,7 @@ function Post(props) {
         </div>
       </Route>
       <Route path={`${path}/edit`}>
-        <PostEdit />
+        <PostEdit user={user} post={post}/>
       </Route>
     </Switch>
 
