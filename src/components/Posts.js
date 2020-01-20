@@ -24,7 +24,7 @@ function Posts(props) {
     let result = [];
 
     posts.forEach((post) => {
-      result.push(<Post key={ post.id } post={ post }/>);
+      result.push(<Post key={ post.id } user={ user } post={ post }/>);
     });
 
     return result
@@ -83,6 +83,7 @@ function Posts(props) {
       id: customPostsNum + 101,
       title,
       body,
+      userId: user.id,
       author: user.username,
       likes: 0,
       dislikes: 0,

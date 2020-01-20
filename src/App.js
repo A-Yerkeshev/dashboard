@@ -181,7 +181,7 @@ function App() {
               loadNewPosts={ loadNewPosts } addCustomPost={ addCustomPost }/>
           </Route>
           <Route path='/post/:postId'>
-            <PostPage posts={ state.posts } generateRandomData={ generateRandomData }/>
+            <PostPage posts={ state.posts } user={ state.currentUser } generateRandomData={ generateRandomData }/>
           </Route>
           <Route path='/sign-in'>
             <Auth setCurrentUser={ setCurrentUser }/>

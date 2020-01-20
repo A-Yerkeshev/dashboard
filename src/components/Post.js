@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Post(props) {
   const postId = props.post.id;
+  const userId = props.post.userId
   const title = props.post.title.charAt(0).toUpperCase() + props.post.title.slice(1);
   const body = props.post.body.charAt(0).toUpperCase() + props.post.body.slice(1);
   const author = props.post.author;
@@ -10,6 +11,24 @@ function Post(props) {
   const dislikes = props.post.dislikes;
   const date = props.post.date;
   const comments = props.post.comments;
+  const user = props.user;
+
+  const editDeleteButtons = () => {
+    if (user) {
+      if (user.id === userId) {
+        return (
+          <React.Fragment>
+            <i className="fas fa-trash fa-2x"></i>
+            <i className="fas fa-edit fa-2x"></i>
+          </React.Fragment>
+        )
+      } else {
+        return;
+      }
+    } else {
+      return;
+    }
+  }
 
   return (
     <Link to={ '/post/' + postId } className="post-link">
@@ -21,6 +40,7 @@ function Post(props) {
         <i className="far fa-thumbs-up fa-2x"></i> { likes }
         <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
         <i className="far fa-comment fa-2x"></i> { comments }
+        { editDeleteButtons() }
       </div>
     </Link>
   )

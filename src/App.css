@@ -198,6 +198,11 @@ footer a {
   cursor: pointer;
 }
 
+.post > .fa-edit,
+.post > .fa-trash {
+  float: right;
+}
+
 /* Post page component */
 .single-post {
   border-bottom: var(--theme-color) 20px solid;

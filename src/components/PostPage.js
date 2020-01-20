@@ -8,6 +8,7 @@ import Post from './Post';
 function PostPage(props) {
   const postId = parseInt(useParams().postId, 10);
   const posts = props.posts;
+  const user = props.user;
   const generateRandomData = props.generateRandomData;
   const [state, setState] = useState({
     post: undefined,
@@ -81,7 +82,7 @@ function PostPage(props) {
     if (state.post) {
       return (
         <div className="single-post">
-          <Post post={ state.post }/>
+          <Post post={ state.post } user={user} />
         </div>
       )
     } else {
