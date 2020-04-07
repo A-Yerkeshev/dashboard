@@ -414,3 +414,24 @@ input {
   max-width: 100%;
 }
 
+/* Post Edit component */
+
+/* Desktop resolution */
+@media only screen and (min-width: 768px) {
+  /* Posts component */
+  .posts-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap: 10px;
+  }
+
+  .error-top,
+  #new-post-form,
+  .spinner,
+  .error-bottom {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  /* Post component */
+
+}
