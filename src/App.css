@@ -19,6 +19,14 @@ a:hover {
   text-decoration: underline;
 }
 
+input {
+  font-size: larger;
+  border: var(--dark-grey) 1px solid;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 0 10px 0 10px;
+}
+
 /* Variables declaration */
 :root {
   --theme-color: #0024B0;
@@ -274,14 +282,6 @@ footer a {
   font-size: larger;
 }
 
-input {
-  font-size: larger;
-  border: var(--dark-grey) 1px solid;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 0 10px 0 10px;
-}
-
 #username {
   margin-right: 1.4em;
 }
@@ -432,6 +432,47 @@ input {
 }
 
 /* Post Edit component */
+.post-edit {
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.post-edit span {
+  float: right;
+  font-weight: bold;
+}
+
+.post-edit i {
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.post-edit a {
+  color: var(--theme-color);
+}
+
+.post-edit .fa-edit,
+.post-edit .fa-trash {
+  float: right;
+}
+
+.post-edit-form > input {
+  width: 100%;
+}
+
+.post-edit-form > textarea {
+  margin-bottom: 10px;
+  width: 100%;
+  vertical-align: bottom;
+  min-height: 150px;
+  font-style: italic;
+  font-size: x-large;
+}
+
+.post-edit-form > button {
+  margin: 0 5px 0 5px;
+}
 
 /* Desktop resolution */
 @media only screen and (min-width: 768px) {
@@ -449,7 +490,7 @@ input {
     grid-column-end: 4;
   }
 
-  /* PostPage component */
+  /* Post page component */
   .post-page {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 80vh;

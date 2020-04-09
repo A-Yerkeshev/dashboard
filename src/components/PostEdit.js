@@ -22,11 +22,12 @@ function PostEdit(props) {
   }
 
   return (
-    <div className="post-edit container">
+    <div className="post-edit">
       <form className="post-edit-form">
-        <label htmlFor="title">Title</label>
         <input name="title" value={ title } />
         <textarea value={ body } />
+        <button className="btn-submit btn-blue">Save</button>
+        <button className="btn-dark">Cancel</button>
       </form>
       <span>{ date }</span><br/>
       <span>{ author }</span><br/>
