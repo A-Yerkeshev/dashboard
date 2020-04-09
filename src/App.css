@@ -432,6 +432,15 @@ input {
     grid-column-end: 4;
   }
 
-  /* Post component */
+  /* PostPage component */
+  .single-post {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  .comments {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 5px;
+  }
 
 }
