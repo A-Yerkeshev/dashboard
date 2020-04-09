@@ -25,6 +25,23 @@ a:hover {
   --dark-grey: #343434;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dark-grey);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-color);
+}
+
 /* App component */
 header {
   background-color: var(--theme-color);
@@ -433,14 +450,15 @@ input {
   }
 
   /* PostPage component */
-  .single-post {
-    grid-column-start: 1;
-    grid-column-end: 4;
+  .post-page {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 80vh;
   }
 
   .comments {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 5px;
+    overflow-y: scroll;
+    border-bottom: var(--theme-color) 20px solid;
+    padding-left: 10px;
+    background-color: var(--dark-grey);
   }
-
 }
