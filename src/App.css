@@ -474,6 +474,10 @@ footer a {
   margin: 0 5px 0 5px;
 }
 
+#edit-error {
+  float: none;
+}
+
 /* Desktop resolution */
 @media only screen and (min-width: 768px) {
   /* Posts component */

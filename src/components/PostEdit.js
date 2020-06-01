@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import $ from 'jquery';
+import axios from 'axios';
 
 function PostEdit(props) {
   const postId = props.post.id;
@@ -37,9 +39,16 @@ function PostEdit(props) {
     event.preventDefault();
     const data = new FormData(event.target);
     const title = data.get('title').trim();
-    const body = data.get('body');
-    console.log(title);
-    console.log(body);
+    const body = data.get('body').trim();
+
+    // Validate user input
+    if (title === '') {
+      $('#edit-error').text('Title cannot be blank!');
+    }
+
+    if (body === '') {
+      $('#edit-error').text('Post body cannot be blank!');
+    }
   }
 
   const trackTitleChange = (event) => {
@@ -56,9 +65,14 @@ function PostEdit(props) {
     });
   }
 
+  const clearAlerts = () => {
+    $('#edit-error').text('');
+  }
+
   return (
     <div className="post-edit">
-      <form className="post-edit-form" onSubmit={ saveChanges }>
+      <span id="edit-error" className="error"></span>
+      <form className="post-edit-form" onSubmit={ saveChanges } onClick={ clearAlerts }>
         <input name="title" id="title" value={ state.title } onChange={ trackTitleChange }/>
         <textarea name="body" id="body" value={ state.body }  onChange={ trackPostBodyChange }/>
         <button className="btn-submit btn-blue" type="submit" value="Submit">Save</button>
