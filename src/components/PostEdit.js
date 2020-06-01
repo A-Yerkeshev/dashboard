@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 
@@ -76,7 +76,7 @@ function PostEdit(props) {
         <input name="title" id="title" value={ state.title } onChange={ trackTitleChange }/>
         <textarea name="body" id="body" value={ state.body }  onChange={ trackPostBodyChange }/>
         <button className="btn-submit btn-blue" type="submit" value="Submit">Save</button>
-        <button className="btn-dark">Cancel</button>
+        <button className="btn-dark"><Link to={ `/post/${postId}` }>Cancel</Link></button>
       </form>
       <span>{ date }</span><br/>
       <span>{ author }</span><br/>
@@ -87,4 +87,4 @@ function PostEdit(props) {
   )
 }
 
-export default PostEdit
+export default withRouter(PostEdit)

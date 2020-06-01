@@ -448,8 +448,8 @@ footer a {
   cursor: pointer;
 }
 
-.post-edit a {
-  color: var(--theme-color);
+.post-edit a:hover {
+  text-decoration: none;
 }
 
 .post-edit .fa-edit,
