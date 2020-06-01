@@ -38,6 +38,8 @@ function PostEdit(props) {
     const data = new FormData(event.target);
     const title = data.get('title').trim();
     const body = data.get('body');
+    console.log(title);
+    console.log(body);
   }
 
   const trackTitleChange = (event) => {
@@ -57,8 +59,8 @@ function PostEdit(props) {
   return (
     <div className="post-edit">
       <form className="post-edit-form" onSubmit={ saveChanges }>
-        <input name="title" id="title" value={ state.title } />
-        <textarea name="body" id="body" value={ state.body } />
+        <input name="title" id="title" value={ state.title } onChange={ trackTitleChange }/>
+        <textarea name="body" id="body" value={ state.body }  onChange={ trackPostBodyChange }/>
         <button className="btn-submit btn-blue" type="submit" value="Submit">Save</button>
         <button className="btn-dark">Cancel</button>
       </form>
