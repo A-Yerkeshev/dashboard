@@ -42,9 +42,9 @@ function Post(props) {
           <Link to={ '/post/' + postId } className="post-link">
             <h3>{ title }</h3><br/>
             <p>{ body }</p><br/>
+            <span>{ date }</span><br/>
+            <span>{ author }</span><br/>
           </Link>
-          <span>{ date }</span><br/>
-          <span>{ author }</span><br/>
           <i className="far fa-thumbs-up fa-2x"></i> { likes }
           <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
           <i className="far fa-comment fa-2x"></i> { comments }

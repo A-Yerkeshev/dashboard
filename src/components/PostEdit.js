@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 function PostEdit(props) {
@@ -12,7 +12,19 @@ function PostEdit(props) {
   const date = props.post.date;
   const comments = props.post.comments;
   const user = props.user;
-  const post = props.post;
+
+  // Initialize state
+  const [state, setState] = useState({
+    title: '',
+    body: ''
+  })
+
+  useEffect( () => {
+    setState({
+      title,
+      body
+    })
+  }, [])
 
   // Protect route from unauthorized access
   if (!user || user.id !== userId) {
@@ -21,12 +33,33 @@ function PostEdit(props) {
     )
   }
 
+  const saveChanges = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const title = data.get('title').trim();
+    const body = data.get('body');
+  }
+
+  const trackTitleChange = (event) => {
+    setState({
+      ...state,
+      title: event.target.value
+    });
+  }
+
+  const trackPostBodyChange = (event) => {
+    setState({
+      ...state,
+      body: event.target.value
+    });
+  }
+
   return (
     <div className="post-edit">
-      <form className="post-edit-form">
-        <input name="title" value={ title } />
-        <textarea value={ body } />
-        <button className="btn-submit btn-blue">Save</button>
+      <form className="post-edit-form" onSubmit={ saveChanges }>
+        <input name="title" id="title" value={ state.title } />
+        <textarea name="body" id="body" value={ state.body } />
+        <button className="btn-submit btn-blue" type="submit" value="Submit">Save</button>
         <button className="btn-dark">Cancel</button>
       </form>
       <span>{ date }</span><br/>
