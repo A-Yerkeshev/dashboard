@@ -44,11 +44,30 @@ function PostEdit(props) {
     // Validate user input
     if (title === '') {
       $('#edit-error').text('Title cannot be blank!');
+      return;
     }
 
     if (body === '') {
       $('#edit-error').text('Post body cannot be blank!');
+      return;
     }
+
+    const newData = {
+      id: postId,
+      title,
+      body
+    }
+
+    axios.post('/posts/edit', newData)
+      .then((reposne) => {
+        return (
+          <Redirect to={ `/post/${postId}` } />
+        )
+      })
+      .catch((error) => {
+        $('#edit-error').text('Failed to make changes. Check your internet connection.');
+        console.log(error)
+      })
   }
 
   const trackTitleChange = (event) => {

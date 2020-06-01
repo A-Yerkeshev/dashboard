@@ -450,6 +450,7 @@ footer a {
 
 .post-edit a:hover {
   text-decoration: none;
+  cursor: default;
 }
 
 .post-edit .fa-edit,

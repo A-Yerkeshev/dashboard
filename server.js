@@ -119,3 +119,29 @@ app.post('/posts/new-post', (req, res) => {
     })
   })
 })
+
+// Edit existing post
+app.post('/posts/edit', (req, res) => {
+  const id = req.body.id;
+
+  fs.readFile('src/posts.json', (err, data) => {
+    const posts = JSON.parse(data);
+
+    const post = posts.find((p) => {
+      return p.id === id;
+    })
+
+    post.title = req.body.title;
+    post.body = req.body.body;
+
+    fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
+      if (err) {
+        console.log('Could not edit post. Error: ' + err);
+        res.send(500);
+      } else {
+        console.log('Post num ' + req.body.id + ' successfully edited');
+        res.send(200);
+      }
+    })
+  })
+})
