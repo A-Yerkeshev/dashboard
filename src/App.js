@@ -100,7 +100,22 @@ function App() {
       })
       .catch((error) => {
         $('.error-top').text('Failed to publish new post. Check your internet connection.');
-        console.log(error)
+        console.log(error);
+      })
+  }
+
+  const deletePost = (postId) => {
+    $('.delete-error').text('');
+    axios.post('/posts/delete-post', postId)
+      .then((response) => {
+        setState({
+          ...state,
+          customPostsNum: state.customPostsNum - 1
+        })
+      })
+      .catch((error) => {
+        $('.delete-error').text('Could not delete a post. Please, try again.');
+        console.log(error);
       })
   }
 

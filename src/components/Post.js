@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import $ from 'jquery';
+import axios from 'axios';
 
 import PostEdit from './PostEdit';
 
@@ -41,9 +42,10 @@ function Post(props) {
       if (user.id === userId) {
         return (
           <div id="confirm-delete-box">
+            <span className="error delete-error"></span>
             <h3>Are you sure you want to delete this post?</h3>
-            <button className="btn-blue">Yes</button>
-            <button className="btn-dark">No</button>
+            <button className="btn-blue" onClick={ deletePost }>Yes</button>
+            <button className="btn-dark" onClick={ closeConfirmDeleteBox }>No</button>
           </div>
         )
       } else {
@@ -56,6 +58,14 @@ function Post(props) {
 
   const openConfirmDeleteBox = () => {
     $('#confirm-delete-box').show();
+  }
+
+  const closeConfirmDeleteBox = () => {
+    $('#confirm-delete-box').hide();
+  }
+
+  const deletePost = () => {
+
   }
 
   return (
