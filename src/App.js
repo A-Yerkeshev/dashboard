@@ -105,10 +105,11 @@ function App() {
   }
 
   const deletePost = (postId) => {
-    console.log(postId)
-/*    $('.delete-error').text('');
+    const data = {id: postId};
+
+    $('.delete-error').text('');
     // Send request to backend
-    axios.post('/posts/delete-post', postId)
+    axios.post('/posts/delete-post', data)
       .then((response) => {
         setState({
           ...state,
@@ -118,7 +119,7 @@ function App() {
       .catch((error) => {
         $('.delete-error').text('Could not delete a post. Please, try again.');
         console.log(error);
-      }) */
+      })
   }
 
   const profileRoute = () => {

@@ -58,7 +58,7 @@ function PostEdit(props) {
       body
     }
 
-    axios.post('/posts/edit', newData)
+    axios.post('/posts/edit-post', newData)
       .then((reposne) => {
         return (
           <Redirect to={ `/post/${postId}` } />

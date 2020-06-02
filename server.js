@@ -121,7 +121,7 @@ app.post('/posts/new-post', (req, res) => {
 })
 
 // Edit existing post
-app.post('/posts/edit', (req, res) => {
+app.post('/posts/edit-post', (req, res) => {
   const id = req.body.id;
 
   fs.readFile('src/posts.json', (err, data) => {
@@ -140,6 +140,31 @@ app.post('/posts/edit', (req, res) => {
         res.send(500);
       } else {
         console.log('Post num ' + req.body.id + ' successfully edited');
+        res.send(200);
+      }
+    })
+  })
+})
+
+// Delete post
+app.post('/posts/delete-post', (req, res) => {
+  const id = req.body.id;
+
+  fs.readFile('src/posts.json', (err, data) => {
+    const posts = JSON.parse(data);
+
+    const post = posts.find((p) => {
+      return p.id === id;
+    })
+
+    posts.remove(post);
+
+    fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
+      if (err) {
+        console.log('Could not delete post. Error: ' + err);
+        res.send(500);
+      } else {
+        console.log('Post num ' + req.body.id + ' successfully deleted');
         res.send(200);
       }
     })
