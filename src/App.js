@@ -105,7 +105,8 @@ function App() {
   }
 
   const deletePost = (postId) => {
-    $('.delete-error').text('');
+    console.log(postId)
+/*    $('.delete-error').text('');
     // Send request to backend
     axios.post('/posts/delete-post', postId)
       .then((response) => {
@@ -117,7 +118,7 @@ function App() {
       .catch((error) => {
         $('.delete-error').text('Could not delete a post. Please, try again.');
         console.log(error);
-      })
+      }) */
   }
 
   const profileRoute = () => {
@@ -197,8 +198,7 @@ function App() {
               loadNewPosts={ loadNewPosts } addCustomPost={ addCustomPost } deletePost={ deletePost }/>
           </Route>
           <Route path='/post/:postId'>
-            <PostPage posts={ state.posts } user={ state.currentUser } generateRandomData={ generateRandomData }
-              deletePost={ deletePost }/>
+            <PostPage posts={ state.posts } user={ state.currentUser } generateRandomData={ generateRandomData } deletePost={ deletePost }/>
           </Route>
           <Route path='/sign-in'>
             <Auth setCurrentUser={ setCurrentUser }/>

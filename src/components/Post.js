@@ -38,6 +38,10 @@ function Post(props) {
     }
   }
 
+  const deleteCurrentPost = () => {
+    deletePost(postId);
+  }
+
   const confirmDeleteBox = () => {
     if (user) {
       if (user.id === userId) {
@@ -45,7 +49,7 @@ function Post(props) {
           <div id="confirm-delete-box">
             <span className="error delete-error"></span>
             <h3>Are you sure you want to delete this post?</h3>
-            <button className="btn-blue" onClick={ deletePost }>Yes</button>
+            <button className="btn-blue" onClick={ deleteCurrentPost }>Yes</button>
             <button className="btn-dark" onClick={ closeConfirmDeleteBox }>No</button>
           </div>
         )
@@ -63,10 +67,6 @@ function Post(props) {
 
   const closeConfirmDeleteBox = () => {
     $('#confirm-delete-box').hide();
-  }
-
-  const deleteCurrentPost = () => {
-
   }
 
   return (

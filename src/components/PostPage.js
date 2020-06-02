@@ -10,6 +10,8 @@ function PostPage(props) {
   const posts = props.posts;
   const user = props.user;
   const generateRandomData = props.generateRandomData;
+  const deletePost = props.deletePost;
+
   const [state, setState] = useState({
     post: undefined,
     comments: []
@@ -82,7 +84,7 @@ function PostPage(props) {
     if (state.post) {
       return (
         <div className="single-post">
-          <Post post={ state.post } user={user} />
+          <Post post={ state.post } user={user} deletePost={ deletePost }/>
         </div>
       )
     } else {
