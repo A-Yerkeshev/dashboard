@@ -106,6 +106,7 @@ function App() {
 
   const deletePost = (postId) => {
     $('.delete-error').text('');
+    // Send request to backend
     axios.post('/posts/delete-post', postId)
       .then((response) => {
         setState({
@@ -193,10 +194,11 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Posts posts={ state.posts } user={ state.currentUser } customPostsNum={ state.customPostsNum }
-              loadNewPosts={ loadNewPosts } addCustomPost={ addCustomPost }/>
+              loadNewPosts={ loadNewPosts } addCustomPost={ addCustomPost } deletePost={ deletePost }/>
           </Route>
           <Route path='/post/:postId'>
-            <PostPage posts={ state.posts } user={ state.currentUser } generateRandomData={ generateRandomData }/>
+            <PostPage posts={ state.posts } user={ state.currentUser } generateRandomData={ generateRandomData }
+              deletePost={ deletePost }/>
           </Route>
           <Route path='/sign-in'>
             <Auth setCurrentUser={ setCurrentUser }/>

@@ -17,6 +17,7 @@ function Post(props) {
   const comments = props.post.comments;
   const post = props.post;
   const user = props.user;
+  const deletePost = props.deletePost;
 
   let { path } = useRouteMatch();
 
@@ -64,7 +65,7 @@ function Post(props) {
     $('#confirm-delete-box').hide();
   }
 
-  const deletePost = () => {
+  const deleteCurrentPost = () => {
 
   }
 

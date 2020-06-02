@@ -267,7 +267,7 @@ footer a {
   left: 50%;
   background-color: white;
   transform: translate(-50%, -50%);
-  box-shadow: var(--dark-grey) 0 0 50px 50px;
+  box-shadow: var(--dark-grey) 0 0 100px 50px;
   padding: 10px;
   text-align: center;
 }

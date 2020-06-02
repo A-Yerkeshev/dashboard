@@ -10,6 +10,7 @@ function Posts(props) {
   const customPostsNum = props.customPostsNum;
   const loadNewPosts = props.loadNewPosts;
   const addPost = props.addCustomPost;
+  const deletePost = props.deletePost;
 
   // Load more posts when bottom of the page is reached
   useBottomScrollListener( () => {
@@ -24,7 +25,7 @@ function Posts(props) {
     let result = [];
 
     posts.forEach((post) => {
-      result.push(<Post key={ post.id } user={ user } post={ post }/>);
+      result.push(<Post key={ post.id } user={ user } deletePost={ deletePost } post={ post }/>);
     });
 
     return result
