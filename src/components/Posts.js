@@ -87,7 +87,7 @@ function Posts(props) {
       author: user.username,
       likes: 0,
       dislikes: 0,
-      comments: 0,
+      comments: 5,
       date: new Date().toDateString()
     }
 

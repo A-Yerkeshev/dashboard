@@ -260,6 +260,22 @@ footer a {
   font-weight: bold;
 }
 
+#confirm-delete-box {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  box-shadow: var(--dark-grey) 0 0 50px 50px;
+  padding: 10px;
+  text-align: center;
+}
+
+#confirm-delete-box > button {
+  margin: 5px 10px 5px 10px;
+}
+
 /* Registration component */
 
 .log-page {

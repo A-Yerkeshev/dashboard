@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
+import $ from 'jquery';
 
 import PostEdit from './PostEdit';
 
@@ -16,14 +17,14 @@ function Post(props) {
   const post = props.post;
   const user = props.user;
 
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
 
   const editDeleteButtons = () => {
     if (user) {
       if (user.id === userId) {
         return (
           <React.Fragment>
-            <i className="fas fa-trash fa-2x"></i>
+            <i className="fas fa-trash fa-2x" onClick={ openConfirmDeleteBox }></i>
             <Link to={`/post/${postId}/edit`}><i className="fas fa-edit fa-2x"></i></Link>
           </React.Fragment>
         )
@@ -33,6 +34,28 @@ function Post(props) {
     } else {
       return;
     }
+  }
+
+  const confirmDeleteBox = () => {
+    if (user) {
+      if (user.id === userId) {
+        return (
+          <div id="confirm-delete-box">
+            <h3>Are you sure you want to delete this post?</h3>
+            <button className="btn-blue">Yes</button>
+            <button className="btn-dark">No</button>
+          </div>
+        )
+      } else {
+        return;
+      }
+    } else {
+      return;
+    }
+  }
+
+  const openConfirmDeleteBox = () => {
+    $('#confirm-delete-box').show();
   }
 
   return (
@@ -49,13 +72,13 @@ function Post(props) {
           <i className="far fa-thumbs-down fa-2x"></i> { dislikes }
           <i className="far fa-comment fa-2x"></i> { comments }
           { editDeleteButtons() }
+          { confirmDeleteBox() }
         </div>
       </Route>
       <Route path={`${path}/edit`}>
         <PostEdit user={user} post={post}/>
       </Route>
     </Switch>
-
   )
 }
 
