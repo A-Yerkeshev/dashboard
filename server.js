@@ -153,20 +153,23 @@ app.post('/posts/delete-post', (req, res) => {
   fs.readFile('src/posts.json', (err, data) => {
     const posts = JSON.parse(data);
 
-    const post = posts.find((p) => {
-      return p.id === id;
-    })
+    for (i=0; i<=(posts.length); i++) {
+      if (posts[i].id === id) {
 
-    posts.remove(post);
+        posts.splice(i, 1);
 
-    fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
-      if (err) {
-        console.log('Could not delete post. Error: ' + err);
-        res.send(500);
-      } else {
-        console.log('Post num ' + req.body.id + ' successfully deleted');
-        res.send(200);
+        // Write changes
+        fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
+          if (err) {
+            console.log('Could not delete post. Error: ' + err);
+            res.send(500);
+          } else {
+            console.log('Post num ' + req.body.id + ' successfully deleted');
+            res.send(200);
+          }
+        })
+        return;
       }
-    })
+    }
   })
 })
