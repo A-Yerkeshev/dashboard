@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const fs = require('fs');
 const multer = require('multer');
 const app = express();
+const path = require('path');
 const upload = multer({dest: '/public/'});
 
 const port = process.env.PORT || 3001;
@@ -13,10 +14,6 @@ app.use(bodyParser.urlencoded({
   parameterLimit: 100000
 }))
 app.use(bodyParser.json({limit: '100mb'}));
-
-app.listen(port, () => {
-  console.log(`Backend is listening on port ${port}`);
-})
 
 // Handle new user registration
 app.post('/register/new-user', (req, res) => {
@@ -172,4 +169,18 @@ app.post('/posts/delete-post', (req, res) => {
       }
     }
   })
+})
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
+
+app.listen(port, () => {
+  console.log(`Backend is listening on port ${port}`);
 })
