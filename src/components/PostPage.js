@@ -109,7 +109,12 @@ function PostPage(props) {
       )
     })
     return (
-      <div className="comments container">{ result }</div>
+      <div className="comments container">
+        <div className="fa-3x spinner">
+          <i className="fas fa-spinner fa-spin"></i>
+        </div>
+        { result }
+      </div>
     )
   }
 
@@ -117,9 +122,6 @@ function PostPage(props) {
     <div className="post-page container">
       { displayPost() }
       { displayComments() }
-      <div className="fa-3x spinner">
-        <i className="fas fa-spinner fa-spin"></i>
-      </div>
       <span className="error-bottom"></span>
     </div>
   );
