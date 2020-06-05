@@ -4,7 +4,7 @@ const fs = require('fs');
 const multer = require('multer');
 const app = express();
 const path = require('path');
-const upload = multer({dest: '/public/'});
+const upload = multer({dest: 'public/'});
 
 const port = process.env.PORT || 3001;
 
