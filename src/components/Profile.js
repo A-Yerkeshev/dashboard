@@ -109,9 +109,12 @@ function Profile(props) {
     }
 
     axios.post('/profile/change-headline', data)
-    .catch( (error) => {
-      console.log(error)
-    })
+      .then( (response) => {
+        console.log(response)
+      })
+      .catch( (error) => {
+        console.log(error)
+      })
   }
 
   const cancelHeadlineChange = (event) => {
