@@ -110,7 +110,10 @@ function Profile(props) {
 
     axios.post('/profile/change-headline', data)
       .then( (response) => {
-        console.log(response)
+        setState({
+          ...state,
+          headline: data.headline
+        })
       })
       .catch( (error) => {
         console.log(error)

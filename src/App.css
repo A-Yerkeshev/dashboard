@@ -523,4 +523,22 @@ footer a {
     padding-left: 10px;
     background-color: var(--dark-grey);
   }
+
+  /* Post edit component */
+  .prof-info {
+    grid-template-areas:
+      'username username username'
+      'headline headline headline'
+      '. . headline-change'
+      'recent-posts . .'
+      'recent-comments . .';
+  }
+
+  .headline-form {
+    display: none;
+    grid-template-areas:
+      'headline-input headline-input .'
+      'headline-cancel headline-save .';
+    grid-column-gap: 5px;
+  }
 }
