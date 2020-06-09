@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function Profile(props) {
   const user = props.user;
+  const setUser = props.setCurrentUser;
 
   const [state, setState] = useState({
     id: 0,
@@ -110,8 +111,8 @@ function Profile(props) {
 
     axios.post('/profile/change-headline', data)
       .then( (response) => {
-        setState({
-          ...state,
+        setCurrentUser({
+          ...user,
           headline: data.headline
         })
         closeHeadlineInput();
@@ -122,7 +123,9 @@ function Profile(props) {
   }
 
   const closeHeadlineInput = (event) => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
 
     $('.prof-info').css('grid-template-areas', `
       'username username'

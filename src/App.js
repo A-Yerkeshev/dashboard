@@ -126,7 +126,7 @@ function App() {
     if (state.currentUser) {
       return (
         <Route path='/profile'>
-          <Profile user={ state.currentUser }/>
+          <Profile user={ state.currentUser } setCurrentUser={ setCurrentUser }/>
         </Route>
       )
     } else {
