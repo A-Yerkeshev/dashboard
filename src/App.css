@@ -344,6 +344,7 @@ footer a {
     'recent-posts .'
     'recent-comments .';
   height: fit-content;
+  grid-template-columns: 2fr 1fr;
 }
 
 .prof-info > h2 {
@@ -525,20 +526,11 @@ footer a {
   }
 
   /* Post edit component */
-  .prof-info {
-    grid-template-areas:
-      'username username username'
-      'headline headline headline'
-      '. . headline-change'
-      'recent-posts . .'
-      'recent-comments . .';
-  }
-
   .headline-form {
     display: none;
     grid-template-areas:
       'headline-input headline-input .'
       'headline-cancel headline-save .';
-    grid-column-gap: 5px;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }

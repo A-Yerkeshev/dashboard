@@ -90,7 +90,7 @@ function Profile(props) {
     return (
       <form className="headline-form" onSubmit={ changeHeadline }>
         <input value={ state.headline } name="headline" onChange={ trackHeadlineChange }/>
-        <button className="btn-dark headline-cancel" onClick={ cancelHeadlineChange }>
+        <button className="btn-dark headline-cancel" onClick={ closeHeadlineInput }>
           Cancel
         </button>
         <button className="btn-dark headline-save" type="submit">
@@ -114,13 +114,14 @@ function Profile(props) {
           ...state,
           headline: data.headline
         })
+        closeHeadlineInput();
       })
       .catch( (error) => {
         console.log(error)
       })
   }
 
-  const cancelHeadlineChange = (event) => {
+  const closeHeadlineInput = (event) => {
     event.preventDefault();
 
     $('.prof-info').css('grid-template-areas', `
