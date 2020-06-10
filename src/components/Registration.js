@@ -82,7 +82,7 @@ function Registration(props) {
       username,
       headline: '',
       password,
-      picture: '/public/default.png'
+      picture: '/default.png'
     }
 
     // Send POST request to the server

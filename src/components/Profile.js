@@ -56,6 +56,12 @@ function Profile(props) {
     event.preventDefault();
 
     const data = new FormData(event.target);
+
+    if (!data) {
+      $('#pic-panel > .error').text('Please, select image to upload');
+      return;
+    }
+
     // Add current user id to form data
     data.append('userId', state.id);
 

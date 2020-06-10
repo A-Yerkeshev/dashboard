@@ -37,7 +37,7 @@ app.post('/register/new-user', (req, res) => {
 
 // Handle profile picture upload from Profile component
 app.post('/profile/change-picture', upload.single('pic'), (req, res) => {
-  const image = __dirname + '/public/' + req.file.filename + '.png';
+  const image = __dirname + req.file.filename + '.png';
   const userId = req.body.userId;
 
   fs.rename(req.file.path, image, (err) => {

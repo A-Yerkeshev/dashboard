@@ -525,12 +525,16 @@ footer a {
     background-color: var(--dark-grey);
   }
 
-  /* Post edit component */
+  /* Profile component */
   .headline-form {
     display: none;
     grid-template-areas:
       'headline-input headline-input .'
       'headline-cancel headline-save .';
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  #pic-panel > form {
+    grid-template-columns: 1fr 1fr 2fr;
   }
 }
