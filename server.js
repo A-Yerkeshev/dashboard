@@ -6,6 +6,14 @@ const app = express();
 const path = require('path');
 const upload = multer({dest: '/'});
 
+// JSON server
+const jsonServer = require('json-server');
+const server = jsonServer.create();
+const router = jsonServer.router(path.join(__dirname, 'db.json'));
+const middlewares = jsonServer.defaults();
+
+server.use(middlewares);
+server.use(router);
 const port = process.env.PORT || 3001;
 
 app.use(bodyParser.urlencoded({
@@ -18,12 +26,12 @@ app.use(bodyParser.json({limit: '100mb'}));
 // Handle new user registration
 app.post('/register/new-user', (req, res) => {
 
-  fs.readFile('src/users.json', (err, data) => {
-    const users = JSON.parse(data);
+  fs.readFile('db.json', (err, data) => {
+    const users = JSON.parse(data).users;
 
     users.push(req.body);
 
-    fs.writeFile('src/users.json', JSON.stringify(users), (err) => {
+    fs.writeFile('db.json', JSON.stringify(users), (err) => {
       if (err) {
         console.log('Could not register a user. Error: ' + err);
         res.send(500);
@@ -46,8 +54,8 @@ app.post('/profile/change-picture', upload.single('pic'), (req, res) => {
       res.send(500);
     } else {
       // Set uploaded picture as active for user
-      fs.readFile('src/users.json', (err, data) => {
-        const users = JSON.parse(data);
+      fs.readFile('db.json', (err, data) => {
+        const users = JSON.parse(data).users;
 
         for (let i=0; i<(users.length); i++) {
           if (users[i].id == userId) {
@@ -56,7 +64,7 @@ app.post('/profile/change-picture', upload.single('pic'), (req, res) => {
           }
         }
 
-        fs.writeFile('src/users.json', JSON.stringify(users), (err) => {
+        fs.writeFile('db.json', JSON.stringify(users), (err) => {
           if (err) {
             console.log('Could not change user picture. Error: ' + err);
             res.send(500);
@@ -75,8 +83,8 @@ app.post('/profile/change-headline', (req, res) => {
   const headline = req.body.headline;
   const userId = req.body.userId;
 
-  fs.readFile('src/users.json', (err, data) => {
-    const users = JSON.parse(data);
+  fs.readFile('db.json', (err, data) => {
+    const users = JSON.parse(data).users;
 
     for (let i=0; i<(users.length); i++) {
       if (users[i].id == userId) {
@@ -85,7 +93,7 @@ app.post('/profile/change-headline', (req, res) => {
       }
     }
 
-    fs.writeFile('src/users.json', JSON.stringify(users), (err) => {
+    fs.writeFile('db.json', JSON.stringify(users), (err) => {
       if (err) {
         console.log('Could not change user headline. Error: ' + err);
         res.send(500);
@@ -100,12 +108,12 @@ app.post('/profile/change-headline', (req, res) => {
 // Add new post
 app.post('/posts/new-post', (req, res) => {
 
-  fs.readFile('src/posts.json', (err, data) => {
-    const posts = JSON.parse(data);
+  fs.readFile('db.json', (err, data) => {
+    const posts = JSON.parse(data).posts;
 
     posts.push(req.body);
 
-    fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
+    fs.writeFile('db.json', JSON.stringify(posts), (err) => {
       if (err) {
         console.log('Could not add new post. Error: ' + err);
         res.send(500);
@@ -121,8 +129,8 @@ app.post('/posts/new-post', (req, res) => {
 app.post('/posts/edit-post', (req, res) => {
   const id = req.body.id;
 
-  fs.readFile('src/posts.json', (err, data) => {
-    const posts = JSON.parse(data);
+  fs.readFile('db.json', (err, data) => {
+    const posts = JSON.parse(data).posts;
 
     const post = posts.find((p) => {
       return p.id === id;
@@ -131,7 +139,7 @@ app.post('/posts/edit-post', (req, res) => {
     post.title = req.body.title;
     post.body = req.body.body;
 
-    fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
+    fs.writeFile('db.json', JSON.stringify(posts), (err) => {
       if (err) {
         console.log('Could not edit post. Error: ' + err);
         res.send(500);
@@ -147,8 +155,8 @@ app.post('/posts/edit-post', (req, res) => {
 app.post('/posts/delete-post', (req, res) => {
   const id = req.body.id;
 
-  fs.readFile('src/posts.json', (err, data) => {
-    const posts = JSON.parse(data);
+  fs.readFile('db.json', (err, data) => {
+    const posts = JSON.parse(data).posts;
 
     for (i=0; i<=(posts.length); i++) {
       if (posts[i].id === id) {
@@ -156,7 +164,7 @@ app.post('/posts/delete-post', (req, res) => {
         posts.splice(i, 1);
 
         // Write changes
-        fs.writeFile('src/posts.json', JSON.stringify(posts), (err) => {
+        fs.writeFile('db.json', JSON.stringify(posts), (err) => {
           if (err) {
             console.log('Could not delete post. Error: ' + err);
             res.send(500);

@@ -2,10 +2,11 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
-import Users from '../users';
+import DB from '/db';
 
 function Registration(props) {
   const setCurrentUser = props.setCurrentUser;
+  const Users = db.users;
 
   const toggleEyeButton = (fieldId) => {
     const toggle = (event) => {

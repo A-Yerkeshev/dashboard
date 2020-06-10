@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
-import customPosts from './posts.json'
+import DB from '/db'
 
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
@@ -12,6 +12,7 @@ import Auth from './components/Auth';
 import Profile from './components/Profile';
 
 function App() {
+  const customPosts = DB.posts;
 
   const [state, setState] = useState({
     currentUser: null,

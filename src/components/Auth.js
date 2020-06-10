@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
-import Users from '../users';
+import DB from '/db';
 
 function Auth(props) {
   const setCurrentUser = props.setCurrentUser;
+  const Users = DB.users;
 
   const clearAlerts = (event) => {
     $('#sign-error').text('');
