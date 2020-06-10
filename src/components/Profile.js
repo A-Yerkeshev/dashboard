@@ -111,7 +111,7 @@ function Profile(props) {
 
     axios.post('/profile/change-headline', data)
       .then( (response) => {
-        setCurrentUser({
+        setUser({
           ...user,
           headline: data.headline
         })
