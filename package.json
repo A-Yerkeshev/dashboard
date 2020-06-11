@@ -18,12 +18,13 @@
     "react-scripts": "3.2.0"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"json-server --watch db.json\"",
+    "start": "concurrently \"react-scripts start\" \"json-server --watch src/db.json --port 3001\"",
     "build": "react-scripts build",
     "heroku-postbuild": "npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": "react-app"
   },

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import $ from 'jquery';
-import axios from 'axios';
 
 import PostEdit from './PostEdit';
 

@@ -91,7 +91,7 @@ function App() {
 
   const addCustomPost = (post) => {
     $('.error-top').text('');
-    axios.post('/posts/new-post', post)
+    axios.post('/posts', post)
       .then((reposne) => {
         setState({
           ...state,
@@ -110,7 +110,7 @@ function App() {
 
     $('.delete-error').text('');
     // Send request to backend
-    axios.post('/posts/delete-post', data)
+    axios.post('/posts', data)
       .then((response) => {
         setState({
           ...state,
