@@ -8,17 +8,5 @@
       "picture": "admin.jpg"
     }
   ],
-  "posts": [
-    {
-      "id": 101,
-      "title": "Test post",
-      "body": "3eragy35e",
-      "userId": 11,
-      "author": "Admin",
-      "likes": 0,
-      "dislikes": 0,
-      "comments": 5,
-      "date": "Thu Jun 11 2020"
-    }
-  ]
+  "posts": []
 }

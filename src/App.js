@@ -110,10 +110,15 @@ function App() {
 
     $('.delete-error').text('');
     // Send request to backend
-    axios.post('/posts', data)
+    axios.delete('/posts/' + postId)
       .then((response) => {
+        const index = state.posts.findIndex((post) => {
+          return post.id === postId;
+        })
+
         setState({
           ...state,
+          posts: state.posts.splice(index, 1),
           customPostsNum: state.customPostsNum - 1
         })
       })
