@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
-import DB from '/db'
+import DB from './db'
 
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
-import DB from '/db';
+import DB from './db';
 
 function Auth(props) {
   const setCurrentUser = props.setCurrentUser;

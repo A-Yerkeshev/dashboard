@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
-import DB from '/db';
+import DB from './db';
 
 function Registration(props) {
   const setCurrentUser = props.setCurrentUser;
