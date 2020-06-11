@@ -6,7 +6,7 @@ import DB from '../db';
 
 function Registration(props) {
   const setCurrentUser = props.setCurrentUser;
-  const Users = db.users;
+  const Users = DB.users;
 
   const toggleEyeButton = (fieldId) => {
     const toggle = (event) => {

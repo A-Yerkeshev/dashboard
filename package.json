@@ -18,8 +18,7 @@
     "react-scripts": "3.2.0"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "concurrently \"react-scripts start\" \"node server.js\"",
+    "start": "concurrently \"react-scripts start\" \"json-server --watch db.json\"",
     "build": "react-scripts build",
     "heroku-postbuild": "npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "test": "react-scripts test",
