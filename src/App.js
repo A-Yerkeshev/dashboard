@@ -91,7 +91,7 @@ function App() {
 
   const addCustomPost = (post) => {
     $('.error-top').text('');
-    axios.post('/posts', post)
+    axios.post('/db/posts', post)
       .then((reposne) => {
         setState({
           ...state,
@@ -110,7 +110,7 @@ function App() {
 
     $('.delete-error').text('');
     // Send request to backend
-    axios.delete('/posts/' + postId)
+    axios.delete('/db/posts/' + postId)
       .then((response) => {
         const index = state.posts.findIndex((post) => {
           return post.id === postId;

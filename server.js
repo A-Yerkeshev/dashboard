@@ -1,21 +1,18 @@
+// Express, Multer
 const express = require('express');
 const bodyParser = require("body-parser");
 const fs = require('fs');
 const multer = require('multer');
-const app = express();
 const path = require('path');
-const upload = multer({dest: '/'});
 
 // JSON server
 const jsonServer = require('json-server');
-const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'src/db.json'));
-const middlewares = jsonServer.defaults();
 
-server.use(middlewares);
-server.use(router);
-const port = process.env.PORT || 3001;
+const app = express();
+const upload = multer({dest: '/build'});
 
+app.use('/db', router);
 app.use(bodyParser.urlencoded({
   limit: '100mb',
   extended: true,
@@ -23,6 +20,7 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json({limit: '100mb'}));
 
+/*
 // Handle new user registration
 app.post('/register/new-user', (req, res) => {
 
@@ -178,6 +176,7 @@ app.post('/posts/delete-post', (req, res) => {
     }
   })
 })
+*/
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
