@@ -13,7 +13,6 @@ const app = express();
 const upload = multer({dest: path.join(__dirname, 'build')});
 const port = process.env.PORT || 3000;
 
-app.use('/db', router);
 app.use(bodyParser.urlencoded({
   limit: '100mb',
   extended: true,
@@ -22,6 +21,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(express.static(path.join(__dirname, 'build')));
 
+// Define endpoint for json-server
 app.use('/api', jsonRouter);
 
 /*
