@@ -7,10 +7,11 @@ const path = require('path');
 
 // JSON server
 const jsonServer = require('json-server');
-const router = jsonServer.router(path.join(__dirname, 'src/db.json'));
+const jsonRouter = jsonServer.router(path.join(__dirname, 'src/db.json'));
 
 const app = express();
 const upload = multer({dest: '/build'});
+const port = process.env.PORT || 3000;
 
 app.use('/db', router);
 app.use(bodyParser.urlencoded({
@@ -19,6 +20,9 @@ app.use(bodyParser.urlencoded({
   parameterLimit: 100000
 }))
 app.use(bodyParser.json({limit: '100mb'}));
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.use('/api', jsonRouter);
 
 /*
 // Handle new user registration
