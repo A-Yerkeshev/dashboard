@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
-import DB from './db'
 
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
@@ -12,8 +11,6 @@ import Auth from './components/Auth';
 import Profile from './components/Profile';
 
 function App() {
-  const customPosts = DB.posts;
-
   const [state, setState] = useState({
     currentUser: null,
     posts: [],
@@ -65,30 +62,21 @@ function App() {
 
         const posts = response.data;
 
-        // Check if any posts left unloaded from database
-        if ((state.customPostsNum) < posts.length) {
-          // If 10 or more posts left unloaded from DB add 10 posts to the state
-          if ((posts.length - state.customPostsNum) >= 10) {
-            setState({
-              ...state,
-              posts: [...state.posts, ...posts.slice(state.customPostsNum - 1, 11)],
-              customPostsNum: state.customPostsNum + 10
-            })
-          // If less then 10 posts left add them all and require remaining from JSONPlaceholder
-          } else if ((posts.length - state.customPostsNum) < 10 && (posts.length - state.customPostsNum) > 0) {
-            const dbPosts = posts.slice(state.customPostsNum);
+        // If 10 or more posts left unloaded from DB add 10 posts to the state
+        if ((posts.length - state.customPostsNum) >= 10) {
+          setState({
+            ...state,
+            posts: [...state.posts, ...posts.slice(state.customPostsNum - 1, 11)],
+            customPostsNum: state.customPostsNum + 10
+          })
+        // If less then 10 posts left add them all and require remaining from JSONPlaceholder
+        } else if ((posts.length - state.customPostsNum) < 10 && (posts.length - state.customPostsNum) > 0) {
+          const dbPosts = posts.slice(state.customPostsNum);
 
-            // setState({
-            //   ...state,
-            //   posts: [...state.posts, ...posts.slice(state.customPostsNum)],
-            //   customPostsNum: posts.length
-            // })
-
-            loadFromJSONPlaceholder(dbPosts);
-          // If no posts left in database just get all from JSONPlaceholder
-          } else if (posts.length === state.customPostsNum) {
-            loadFromJSONPlaceholder();
-          }
+          loadFromJSONPlaceholder(dbPosts);
+        // If no posts left in database just get all from JSONPlaceholder
+        } else if (posts.length === state.customPostsNum) {
+          loadFromJSONPlaceholder();
         }
       })
       .catch((error) => {
