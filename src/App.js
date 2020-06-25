@@ -56,8 +56,6 @@ function App() {
 
   const loadNewPosts = () => {
     $('.spinner').show();
-    // Define variable to keep track of how many posts are requested but not loaded yet
-    let pending = 0;
 
     // First try to load posts from database
     axios.get('/api/posts')
@@ -68,30 +66,27 @@ function App() {
         const posts = response.data;
 
         // Check if any posts left unloaded from database
-        if ((state.customPostsNum + pending) < posts.length) {
+        if ((state.customPostsNum) < posts.length) {
           // If 10 or more posts left unloaded from DB add 10 posts to the state
-          if ((posts.length - state.customPostsNum + pending) >= 10) {
+          if ((posts.length - state.customPostsNum) >= 10) {
             setState({
               ...state,
               posts: [...state.posts, ...posts.slice(state.customPostsNum - 1, 11)],
               customPostsNum: state.customPostsNum + 10
-            }, () => {
-              pending = 0;
             })
-
-            pending += 10;
           // If less then 10 posts left add them all and require remaining from JSONPlaceholder
-          } else if ((posts.length - state.customPostsNum + pending) < 10) {
-            setState({
-              ...state,
-              posts: [...state.posts, ...posts.slice(state.customPostsNum)],
-              customPostsNum: posts.length
-            }, () => {
-              pending = 0;
-            })
+          } else if ((posts.length - state.customPostsNum) < 10 && (posts.length - state.customPostsNum) > 0) {
+            const dbPosts = posts.slice(state.customPostsNum);
 
-            pending += posts.slice(state.customPostsNum).length;
+            // setState({
+            //   ...state,
+            //   posts: [...state.posts, ...posts.slice(state.customPostsNum)],
+            //   customPostsNum: posts.length
+            // })
 
+            loadFromJSONPlaceholder(dbPosts);
+          // If no posts left in database just get all from JSONPlaceholder
+          } else if (posts.length === state.customPostsNum) {
             loadFromJSONPlaceholder();
           }
         }
@@ -104,8 +99,7 @@ function App() {
       })
   }
 
-  const loadFromJSONPlaceholder = () => {
-
+  const loadFromJSONPlaceholder = (dbPosts) => {
     const userId = (state.posts.length - state.customPostsNum)/10 + 1;
 
     // First get the username of author
@@ -126,10 +120,19 @@ function App() {
               post.author = username;
             })
 
-            setState({
-              ...state,
-              posts: [...state.posts, ...posts]
-            })
+            // If some posts from database left uloaded add them as well
+            if (dbPosts) {
+              setState({
+                ...state,
+                posts: [...state.posts, ...dbPosts, ...posts],
+                customPostsNum: dbPosts.length
+              })
+            } else {
+              setState({
+                ...state,
+                posts: [...state.posts, ...posts]
+              })
+            }
           })
           .catch((error) => {
             console.log('Could not load posts from JSONPlaceholder');
