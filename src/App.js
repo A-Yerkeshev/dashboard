@@ -169,9 +169,10 @@ function App() {
           return post.id === postId;
         })
 
+        state.posts.splice(index, 1);
+
         setState({
           ...state,
-          posts: state.posts.splice(index, 1),
           customPostsNum: state.customPostsNum - 1
         })
       })
