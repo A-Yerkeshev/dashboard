@@ -16,12 +16,12 @@ function App() {
 
   const [state, setState] = useState({
     currentUser: null,
-    posts: customPosts,
-    customPostsNum: customPosts.length
+    posts: [],
+    customPostsNum: 0
   })
 
   useEffect( () => {
-    // Get fist 10 posts from JSONPlaceholder
+    // Get fist 10 posts
     loadNewPosts();
   }, [])
 
@@ -40,39 +40,101 @@ function App() {
     post.comments = 5;
   }
 
+  const getCustomPosts = () => {
+    axios.get('/api/posts')
+      .then((response) => {
+        setState({
+          ...state,
+          posts: [...state.posts, ...response.data],
+          customPostsNum: response.data.length
+        })
+      })
+      .catch((error) => {
+        console.log('Failed to load posts from DB');
+      })
+  }
+
   const loadNewPosts = () => {
+    $('.spinner').show();
+    // Define variable to keep track of how many posts are requested but not loaded yet
+    let pending = 0;
+
+    // First try to load posts from database
+    axios.get('/api/posts')
+      .then((response) => {
+        // Clear error line
+        $('.error-bottom').text('');
+
+        const posts = response.data;
+
+        // Check if any posts left unloaded from database
+        if ((state.customPostsNum + pending) < posts.length) {
+          // If 10 or more posts left unloaded from DB add 10 posts to the state
+          if ((posts.length - state.customPostsNum + pending) >= 10) {
+            setState({
+              ...state,
+              posts: [...state.posts, ...posts.slice(state.customPostsNum - 1, 11)],
+              customPostsNum: state.customPostsNum + 10
+            }, () => {
+              pending = 0;
+            })
+
+            pending += 10;
+          // If less then 10 posts left add them all and require remaining from JSONPlaceholder
+          } else if ((posts.length - state.customPostsNum + pending) < 10) {
+            setState({
+              ...state,
+              posts: [...state.posts, ...posts.slice(state.customPostsNum)],
+              customPostsNum: posts.length
+            }, () => {
+              pending = 0;
+            })
+
+            pending += posts.slice(state.customPostsNum).length;
+
+            loadFromJSONPlaceholder();
+          }
+        }
+      })
+      .catch((error) => {
+        $('.error-bottom').text('Could not load more posts. Check your internet connection.');
+      })
+      .finally(() => {
+        $('.spinner').hide();
+      })
+  }
+
+  const loadFromJSONPlaceholder = () => {
+
     const userId = (state.posts.length - state.customPostsNum)/10 + 1;
 
-    if (state.posts.length < 100) {
-      $('.spinner').show();
+    // First get the username of author
+    axios.get(`https://jsonplaceholder.typicode.com/users/` + userId)
+      .then((response) => {
+        const username = response.data.username;
 
-      // First get the username of author
-      axios.get(`https://jsonplaceholder.typicode.com/users/` + userId)
-        .then((response) => {
-          const username = response.data.username;
+        // After that get the posts
+        axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + userId)
+          .then((response) => {
+            // Check how many posts of this author are already loaded
+            const authorsPosts = (state.posts.length - state.customPostsNum) % 10;
+            // Add remaining ones
+            const posts = response.data.slice(authorsPosts);
 
-          // After get the posts
-          axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + userId)
-            .then((response) => {
-              // Clean error line
-              $('.error-bottom').text('');
-              response.data.forEach((post) => {
-                generateRandomData(post);
-                post.author = username;
-              })
-              setState({
-                ...state,
-                posts: [...state.posts, ...response.data]
-              })
+            posts.forEach((post) => {
+              generateRandomData(post);
+              post.author = username;
             })
-        })
-        .catch((error) => {
-          $('.error-bottom').text('Could not load more posts. Check your internet connection.');
-        })
-        .finally(() => {
-          $('.spinner').hide();
-        })
-      }
+
+            setState({
+              ...state,
+              posts: [...state.posts, ...posts]
+            })
+          })
+          .catch((error) => {
+            console.log('Could not load posts from JSONPlaceholder');
+          })
+      })
   }
 
   const setCurrentUser = (user) => {
