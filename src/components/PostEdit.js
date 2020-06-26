@@ -53,12 +53,12 @@ function PostEdit(props) {
     }
 
     const newData = {
-      id: postId,
+      ...props.post,
       title,
       body
     }
 
-    axios.post('/posts/edit-post', newData)
+    axios.post('/api/posts/' + postId, newData)
       .then((reposne) => {
         return (
           <Redirect to={ `/post/${postId}` } />

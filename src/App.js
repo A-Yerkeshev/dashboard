@@ -52,8 +52,6 @@ function App() {
   }
 
   const loadNewPosts = () => {
-    $('.spinner').show();
-
     // First try to load posts from database
     axios.get('/api/posts')
       .then((response) => {
@@ -82,50 +80,54 @@ function App() {
       .catch((error) => {
         $('.error-bottom').text('Could not load more posts. Check your internet connection.');
       })
-      .finally(() => {
-        $('.spinner').hide();
-      })
   }
 
   const loadFromJSONPlaceholder = (dbPosts) => {
     const userId = (state.posts.length - state.customPostsNum)/10 + 1;
 
     // First get the username of author
-    axios.get(`https://jsonplaceholder.typicode.com/users/` + userId)
-      .then((response) => {
-        const username = response.data.username;
+    if (userId < 11) {
+      $('.spinner').show();
 
-        // After that get the posts
-        axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + userId)
-          .then((response) => {
-            // Check how many posts of this author are already loaded
-            const authorsPosts = (state.posts.length - state.customPostsNum) % 10;
-            // Add remaining ones
-            const posts = response.data.slice(authorsPosts);
+      axios.get(`https://jsonplaceholder.typicode.com/users/` + userId)
+        .then((response) => {
+          const username = response.data.username;
 
-            posts.forEach((post) => {
-              generateRandomData(post);
-              post.author = username;
+          // After that get the posts
+          axios.get(`https://jsonplaceholder.typicode.com/posts?userId=` + userId)
+            .then((response) => {
+              // Check how many posts of this author are already loaded
+              const authorsPosts = (state.posts.length - state.customPostsNum) % 10;
+              // Add remaining ones
+              const posts = response.data.slice(authorsPosts);
+
+              posts.forEach((post) => {
+                generateRandomData(post);
+                post.author = username;
+              })
+
+              // If some posts from database left uloaded add them as well
+              if (dbPosts) {
+                setState({
+                  ...state,
+                  posts: [...state.posts, ...dbPosts, ...posts],
+                  customPostsNum: dbPosts.length
+                })
+              } else {
+                setState({
+                  ...state,
+                  posts: [...state.posts, ...posts]
+                })
+              }
             })
-
-            // If some posts from database left uloaded add them as well
-            if (dbPosts) {
-              setState({
-                ...state,
-                posts: [...state.posts, ...dbPosts, ...posts],
-                customPostsNum: dbPosts.length
-              })
-            } else {
-              setState({
-                ...state,
-                posts: [...state.posts, ...posts]
-              })
-            }
-          })
-          .catch((error) => {
-            console.log('Could not load posts from JSONPlaceholder');
-          })
-      })
+            .catch((error) => {
+              console.log('Could not load posts from JSONPlaceholder');
+            })
+            .finally(() => {
+              $('.spinner').hide();
+            })
+        })
+      }
   }
 
   const setCurrentUser = (user) => {
