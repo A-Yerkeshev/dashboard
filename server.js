@@ -19,10 +19,17 @@ app.use(bodyParser.urlencoded({
   parameterLimit: 100000
 }))
 app.use(bodyParser.json({limit: '100mb'}));
-app.use(express.static(path.join(__dirname, 'build')));
+
 
 // Define endpoint for json-server
 app.use('/api', jsonRouter);
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 /*
 // Handle new user registration
@@ -187,7 +194,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'build')));
 
   // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
+  app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 }

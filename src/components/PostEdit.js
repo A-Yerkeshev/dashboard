@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from "history";
 import $ from 'jquery';
 import axios from 'axios';
 
@@ -14,6 +15,8 @@ function PostEdit(props) {
   const date = props.post.date;
   const comments = props.post.comments;
   const user = props.user;
+
+  const history = createBrowserHistory();
 
   // Initialize state
   const [state, setState] = useState({
@@ -37,6 +40,7 @@ function PostEdit(props) {
 
   const saveChanges = (event) => {
     event.preventDefault();
+
     const data = new FormData(event.target);
     const title = data.get('title').trim();
     const body = data.get('body').trim();
@@ -58,11 +62,9 @@ function PostEdit(props) {
       body
     }
 
-    axios.post('/api/posts/' + postId, newData)
-      .then((reposne) => {
-        return (
-          <Redirect to={ `/post/${postId}` } />
-        )
+    axios.put('/api/posts/' + postId, newData)
+      .then((response) => {
+        history.push(`/post/${postId}`);
       })
       .catch((error) => {
         $('#edit-error').text('Failed to make changes. Check your internet connection.');
