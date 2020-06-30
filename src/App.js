@@ -184,6 +184,21 @@ function App() {
       })
   }
 
+  // Refresh post state after change
+  const setPostState = (postId, data) => {
+    const index = state.posts.findIndex((post) => {
+      return post.id === postId;
+    })
+
+    let posts = [...state.posts];
+    posts[index] = data;
+
+    setState({
+      ...state,
+      posts
+    })
+  }
+
   const profileRoute = () => {
     if (state.currentUser) {
       return (
@@ -261,7 +276,8 @@ function App() {
               loadNewPosts={ loadNewPosts } addCustomPost={ addCustomPost } deletePost={ deletePost }/>
           </Route>
           <Route path='/post/:postId'>
-            <PostPage posts={ state.posts } user={ state.currentUser } generateRandomData={ generateRandomData } deletePost={ deletePost }/>
+            <PostPage posts={ state.posts } user={ state.currentUser } generateRandomData={ generateRandomData }
+              deletePost={ deletePost } setPostState={ setPostState }/>
           </Route>
           <Route path='/sign-in'>
             <Auth setCurrentUser={ setCurrentUser }/>

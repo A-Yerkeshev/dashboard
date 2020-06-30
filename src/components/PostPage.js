@@ -11,6 +11,7 @@ function PostPage(props) {
   const user = props.user;
   const generateRandomData = props.generateRandomData;
   const deletePost = props.deletePost;
+  const setPostState = props.setPostState;
 
   const [state, setState] = useState({
     post: null,
@@ -80,7 +81,9 @@ function PostPage(props) {
       }
   }, [postId, posts])
 
-  const setPostState = (post) => {
+  const changePostState = (post) => {
+    setPostState(postId, post);
+
     setState({
       ...state,
       post: post
@@ -91,7 +94,7 @@ function PostPage(props) {
     if (state.post) {
       return (
         <div className="single-post">
-          <Post post={ state.post } user={user} deletePost={ deletePost } setPostState={ setPostState }/>
+          <Post post={ state.post } user={user} deletePost={ deletePost } setPostState={ changePostState }/>
         </div>
       )
     } else {

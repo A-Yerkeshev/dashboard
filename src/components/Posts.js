@@ -19,7 +19,7 @@ function Posts(props) {
     }
   })
 
-  // Function that makes JSX templates from posts data
+  // Make JSX templates from posts data
   const displayPosts = () => {
     let result = [];
 

@@ -12,7 +12,7 @@
     {
       "id": 101,
       "title": "Test post",
-      "body": "Some test text",
+      "body": "Some test text 123",
       "userId": 11,
       "author": "Admin",
       "likes": 0,
