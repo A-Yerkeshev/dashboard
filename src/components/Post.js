@@ -17,6 +17,7 @@ function Post(props) {
   const post = props.post;
   const user = props.user;
   const deletePost = props.deletePost;
+  const setPostState = props.setPostState;
 
   let { path } = useRouteMatch();
 
@@ -86,7 +87,7 @@ function Post(props) {
         </div>
       </Route>
       <Route path={`${path}/edit`}>
-        <PostEdit user={user} post={post}/>
+        <PostEdit user={user} post={post} setPostState={setPostState}/>
       </Route>
     </Switch>
   )

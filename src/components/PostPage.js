@@ -13,7 +13,7 @@ function PostPage(props) {
   const deletePost = props.deletePost;
 
   const [state, setState] = useState({
-    post: undefined,
+    post: null,
     comments: []
   })
 
@@ -51,7 +51,7 @@ function PostPage(props) {
     }
 
     // Otherwise request it from server
-    if (state.post === undefined) {
+    if (!state.post) {
       if (postId <= 100) {
         $('.spinner').show();
 
@@ -80,11 +80,18 @@ function PostPage(props) {
       }
   }, [postId, posts])
 
+  const setPostState = (post) => {
+    setState({
+      ...state,
+      post: post
+    })
+  }
+
   const displayPost = () => {
     if (state.post) {
       return (
         <div className="single-post">
-          <Post post={ state.post } user={user} deletePost={ deletePost }/>
+          <Post post={ state.post } user={user} deletePost={ deletePost } setPostState={ setPostState }/>
         </div>
       )
     } else {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter, Redirect } from 'react-router-dom';
-import { createBrowserHistory } from "history";
 import $ from 'jquery';
 import axios from 'axios';
 
@@ -15,17 +14,18 @@ function PostEdit(props) {
   const date = props.post.date;
   const comments = props.post.comments;
   const user = props.user;
-
-  const history = createBrowserHistory();
+  const setPostState = props.setPostState;
 
   // Initialize state
   const [state, setState] = useState({
     title: '',
-    body: ''
+    body: '',
+    redirect: false
   })
 
   useEffect( () => {
     setState({
+      ...state,
       title,
       body
     })
@@ -33,6 +33,13 @@ function PostEdit(props) {
 
   // Protect route from unauthorized access
   if (!user || user.id !== userId) {
+    setState({
+      ...state,
+      redirect: true
+    })
+  }
+
+  if (state.redirect) {
     return (
       <Redirect to={ `/post/${postId}` } />
     )
@@ -64,11 +71,16 @@ function PostEdit(props) {
 
     axios.put('/api/posts/' + postId, newData)
       .then((response) => {
-        history.push(`/post/${postId}`);
+        setPostState(response.data);
+        // Redirect back to post page after successfull call
+        setState({
+          ...state,
+          redirect: true
+        })
       })
       .catch((error) => {
         $('#edit-error').text('Failed to make changes. Check your internet connection.');
-        console.log(error)
+        console.log(error);
       })
   }
 
