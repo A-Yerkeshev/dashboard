@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
-import DB from '../db';
+import axios from 'axios';
 
 function Auth(props) {
   const setCurrentUser = props.setCurrentUser;
-  const Users = DB.users;
 
   const clearAlerts = (event) => {
     $('#sign-error').text('');
@@ -18,10 +17,12 @@ function Auth(props) {
   const toggleEyeButton = (fieldId) => {
     const toggle = (event) => {
       event.preventDefault();
+
       $(event.target).toggle();
       $(event.target).siblings().toggle();
 
       const field = $('#' + fieldId);
+
       if (field.attr('type') === 'password') {
         field.attr('type', 'text');
       } else {
@@ -57,24 +58,29 @@ function Auth(props) {
       return;
     }
 
-    for (let i=0; i<(Users.length); i++) {
-      if (Users[i].username === username) {
-        if (Users[i].password === password) {
-          setCurrentUser(Users[i]);
-          props.history.push('/');
-          return;
-        } else {
-          $('#sign-error').text('Username or password is incorrect!');
-          $('#username').css('color', 'red');
-          $('#password').css('color', 'red');
-          return;
-        }
-      }
-    }
+    axios.get('/api/users')
+      .then((response) => {
+        const users = response.data;
 
-    // Alert that user with this username is not found
-    $('#sign-error').text('User with this username is not found!');
-    $('#username').css('color', 'red');
+        for (let i=0; i<(users.length); i++) {
+          if (users[i].username === username) {
+            if (users[i].password === password) {
+              setCurrentUser(users[i]);
+              props.history.push('/');
+              return;
+            } else {
+              $('#sign-error').text('Username or password is incorrect!');
+              $('#username').css('color', 'red');
+              $('#password').css('color', 'red');
+              return;
+            }
+          }
+        }
+
+        // Alert that user with this username is not found
+        $('#sign-error').text('User with this username is not found!');
+        $('#username').css('color', 'red');
+      })
 
   }
 
