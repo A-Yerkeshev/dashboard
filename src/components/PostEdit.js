@@ -19,8 +19,7 @@ function PostEdit(props) {
   // Initialize state
   const [state, setState] = useState({
     title: '',
-    body: '',
-    redirect: false
+    body: ''
   })
 
   useEffect( () => {
@@ -33,16 +32,7 @@ function PostEdit(props) {
 
   // Protect route from unauthorized access
   if (!user || user.id !== userId) {
-    setState({
-      ...state,
-      redirect: true
-    })
-  }
-
-  if (state.redirect) {
-    return (
-      <Redirect to={ `/post/${postId}` } />
-    )
+    props.history.push('/');
   }
 
   const saveChanges = (event) => {
@@ -72,15 +62,11 @@ function PostEdit(props) {
     axios.put('/api/posts/' + postId, newData)
       .then((response) => {
         setPostState(response.data);
-        // Redirect back to post page after successfull call
-        setState({
-          ...state,
-          redirect: true
-        })
+        props.history.push(`/post/{ $postId }`)
       })
       .catch((error) => {
         $('#edit-error').text('Failed to make changes. Check your internet connection.');
-        console.log(error);
+        console.log('PUT /api/posts/[postId] failed, error: ', error);
       })
   }
 
