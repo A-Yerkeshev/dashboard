@@ -6,6 +6,13 @@
       "headline": "Boss on the server",
       "password": "Admin",
       "picture": "admin.jpg"
+    },
+    {
+      "id": 2,
+      "username": "Meow",
+      "headline": "",
+      "password": "Meow1",
+      "picture": "/default.png"
     }
   ],
   "posts": [

@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
-import DB from '../db';
 
 function Registration(props) {
   const setCurrentUser = props.setCurrentUser;
-  const Users = DB.users;
 
   const toggleEyeButton = (fieldId) => {
     const toggle = (event) => {
@@ -32,6 +30,7 @@ function Registration(props) {
 
   const registerNewUser = (event) => {
     event.preventDefault();
+
     const data = new FormData(event.target);
     const username = data.get('username').trim();
     const password = data.get('password');
@@ -69,32 +68,43 @@ function Registration(props) {
       return;
     }
 
-    // Check if username is already used
-    for (let i=0; i<(Users.length); i++) {
-      if (Users[i].username === username) {
-        $('#reg-error').text('This username is already in use!');
-        $('#username').css('color', 'red');
-        return;
-      }
-    }
+    // Get users from database
+    axios.get('/api/users')
+      .then((response) => {
+        const users = response.data;
 
-    const newUser = {
-      id: Users.length + 1,
-      username,
-      headline: '',
-      password,
-      picture: '/default.png'
-    }
+        // Check if username is already used
+        for (let i=0; i<(users.length); i++) {
+          if (users[i].username === username) {
+            $('#reg-error').text('This username is already in use!');
+            $('#username').css('color', 'red');
+            return;
+          }
+        }
 
-    // Send POST request to the server
-    axios.post('/register/new-user', newUser)
-      .then( (response) => {
-        setCurrentUser(newUser);
-        props.history.push('/');
+        const newUser = {
+          id: users.length + 1,
+          username,
+          headline: '',
+          password,
+          picture: '/default.png'
+        }
+
+        // Send POST request to the server
+        axios.post('/api/users', newUser)
+          .then((response) => {
+            setCurrentUser(newUser);
+            props.history.push('/');
+          })
+          .catch((error) => {
+            console.log('POST /api/users failed, error: ', error);
+          })
+
       })
-      .catch( (error) => {
-        console.log(error);
-      });
+      .catch((error) => {
+        $('#reg-error').text('Cannot conect to server. Check your internet connection');
+        console.log('GET /api/users failed, error: ', error);
+      })
 
   }
 
