@@ -83,7 +83,7 @@ function Registration(props) {
         }
 
         const newUser = {
-          id: users.length + 1,
+          id: users.length + 11,
           username,
           headline: '',
           password,

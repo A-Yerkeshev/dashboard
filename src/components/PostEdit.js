@@ -62,7 +62,7 @@ function PostEdit(props) {
     axios.put('/api/posts/' + postId, newData)
       .then((response) => {
         setPostState(response.data);
-        props.history.push(`/post/{ $postId }`)
+        props.history.push(`/post/${postId}`)
       })
       .catch((error) => {
         $('#edit-error').text('Failed to make changes. Check your internet connection.');

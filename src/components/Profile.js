@@ -111,20 +111,20 @@ function Profile(props) {
     event.preventDefault();
 
     const data = {
-      headline: event.target.headline.value,
-      userId: state.id
+      ...user,
+      headline: event.target.headline.value
     }
 
-    axios.post('/profile/change-headline', data)
-      .then( (response) => {
+    axios.put(`/api/users/${user.id}`, data)
+      .then((response) => {
         setUser({
           ...user,
           headline: data.headline
         })
         closeHeadlineInput();
       })
-      .catch( (error) => {
-        console.log(error)
+      .catch((error) => {
+        console.log('PUT /api/users/[userId] failed, error: ', error);
       })
   }
 
