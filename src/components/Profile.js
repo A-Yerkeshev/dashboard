@@ -6,6 +6,7 @@ import axios from 'axios';
 function Profile(props) {
   const user = props.user;
   const setUser = props.setCurrentUser;
+  const getProfilePicture = props.getProfilePicture;
 
   const [state, setState] = useState({
     id: 0,
@@ -19,8 +20,10 @@ function Profile(props) {
       id: user.id,
       username: user.username,
       headline: user.headline,
-      picture: user.picture
+      picture: ''
     })
+
+    getProfilePicture(user, $('.prof-pic img'));
   }, [])
 
   const picturePanel = () => {
@@ -32,7 +35,6 @@ function Profile(props) {
           <input id="pic-panel-submit" className="btn-dark" type="submit" value="Change picture"/>
           <img id="preview"/>
         </form>
-        <b>Max size: 100mb</b>
         <button className="btn-dark" onClick={ closePicturePanel }>Cancel</button>
       </div>
     )
@@ -55,30 +57,44 @@ function Profile(props) {
   const changePicture = (event) => {
     event.preventDefault();
 
-    const data = new FormData(event.target);
+    const image = $('#preview');
 
-    if (!data) {
+    if (!image.attr('src')) {
       $('#pic-panel > .error').text('Please, select image to upload');
       return;
     }
 
-    // Add current user id to form data
-    data.append('userId', state.id);
+    const encodedImage = encodeImage(image.get(0));
 
-    axios.post('/profile/change-picture', data, {
-      headers: {
-        'accept': 'application/json',
-        'Accept-Language': 'en-US,en;q=0.8',
-        'Content-Type': `multipart/form-data; boundary=${data._boundary}`
-      }
-    })
-    .then( (response) => {
+    try {
+      localStorage.setItem(`profileImage-${state.username}`, encodedImage);
+
+      // Set newly saved image as active
+      getProfilePicture(user, $('#prof-head img'));
+      getProfilePicture(user, $('.prof-pic img'));
+
       closePicturePanel();
-    })
-    .catch( (error) => {
+    }
+    catch (error) {
       $('#pic-panel > .error').text('Failed to change image. Check your internet connection');
-      console.log(error);
-    });
+      console.log('Write to localStorage /profileImage-[username] failed, error: ', error);
+    }
+
+  }
+
+  // Encode uploaded image for storing it in localStorage
+  const encodeImage = (img) => {
+    const imgCanvas = document.createElement("canvas");
+    const imgContext = imgCanvas.getContext("2d");
+
+    imgCanvas.width = img.width;
+    imgCanvas.height = img.height;
+
+    imgContext.drawImage(img, 0, 0, img.width, img.height);
+
+    const imgAsDataURL = imgCanvas.toDataURL("image/png");
+
+    return imgAsDataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   }
 
   const openHeadlineInput = () => {
@@ -171,7 +187,7 @@ function Profile(props) {
   return (
     <div className="container profile">
       <div className="prof-pic">
-        <img src={ process.env.PUBLIC_URL + state.picture } />
+        <img src="/pic-placeholder-light.png" />
         <button className="btn-dark" onClick={ openPicturePanel }>Change picture</button>
       </div>
       <div className="prof-info">

@@ -85,7 +85,7 @@ app.get('*', (req, res) => {
 //       })
 //     }
 //   })
-// })
+// });
 
 // // Handle user's headline change from Profile component
 // app.post('/profile/change-headline', (req, res) => {

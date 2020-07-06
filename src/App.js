@@ -135,6 +135,7 @@ function App() {
       ...state,
       currentUser: user
     })
+    getUserProfilePicture(user, $('#prof-head img'));
   }
 
   const signOut = () => {
@@ -199,11 +200,28 @@ function App() {
     })
   }
 
+  const getUserProfilePicture = async (user, imgElement) => {
+    let picture;
+
+    // Check wheter user's picture exists on server
+    await axios.get(`/${user.picture}`)
+      .then((response) => {
+        picture = user.picture;
+      })
+      // If image is not found on server get it from localStorage
+      .catch((error) => {
+        picture = "data:image/png;base64," + localStorage.getItem(`profileImage-${user.username}`);
+      })
+
+    // Set retrieved picture as src attribute
+    imgElement.attr('src', process.env.PUBLIC_URL + picture);
+  }
+
   const profileRoute = () => {
     if (state.currentUser) {
       return (
         <Route path='/profile'>
-          <Profile user={ state.currentUser } setCurrentUser={ setCurrentUser }/>
+          <Profile user={ state.currentUser } setCurrentUser={ setCurrentUser } getProfilePicture = {getUserProfilePicture}/>
         </Route>
       )
     } else {
@@ -236,7 +254,7 @@ function App() {
       )
       profileInfo = (
         <div id="prof-head">
-          <h3>Signed as <img src={ process.env.PUBLIC_URL + state.currentUser.picture } />
+          <h3>Signed as <img src="/pic-placeholder-dark.png" />
             { ' ' + state.currentUser.username }
           </h3>
         </div>

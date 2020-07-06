@@ -537,4 +537,8 @@ footer a {
   #pic-panel > form {
     grid-template-columns: 1fr 1fr 2fr;
   }
+
+  #preview {
+    max-width: 50%;
+  }
 }
