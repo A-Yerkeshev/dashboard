@@ -13,14 +13,6 @@ const app = express();
 const upload = multer({dest: path.join(__dirname, 'build')});
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({
-  limit: '100mb',
-  extended: true,
-  parameterLimit: 100000
-}))
-app.use(bodyParser.json({limit: '100mb'}));
-
-
 // Define endpoint for json-server
 app.use('/api', jsonRouter);
 
@@ -32,6 +24,14 @@ app.get('*', (req, res) => {
 
 
 /* --- Backend implementation with Node native modules --- */
+
+// app.use(bodyParser.urlencoded({
+//   limit: '100mb',
+//   extended: true,
+//   parameterLimit: 100000
+// }))
+// app.use(bodyParser.json({limit: '100mb'}));
+
 // Handle new user registration
 // app.post('/register/new-user', (req, res) => {
 

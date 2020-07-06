@@ -112,6 +112,8 @@ function App() {
                   ...state,
                   posts: [...state.posts, ...dbPosts, ...posts],
                   customPostsNum: dbPosts.length
+                }, () => {
+                  console.log('State updated to', state)
                 })
               } else {
                 setState({
@@ -136,6 +138,12 @@ function App() {
       currentUser: user
     })
     getUserProfilePicture(user, $('#prof-head img'));
+
+    // Store user cookie in browser
+    const date = new Date();
+    date.setTime(date.getTime() + (60*60*1000));
+
+    document.cookie = `loggedUserId=${user.id}; expires=${date.toUTCString()}`;
   }
 
   const signOut = () => {
@@ -215,6 +223,33 @@ function App() {
 
     // Set retrieved picture as src attribute
     imgElement.attr('src', process.env.PUBLIC_URL + picture);
+  }
+
+  const authUserFromCookies = () => {
+    // Check if there is a user auth cookie
+    const cookie = document.cookie;
+    const userCookieIndex = cookie.search(`loggedUserId=`);
+
+    let userId;
+
+    if (userCookieIndex !== -1) {
+      const firstIndex = userCookieIndex + 'loggedUserId='.length;
+      const lastIndex = cookie.substring(firstIndex).indexOf(';');
+
+      // If there is another cookie after user cookie, get only user cookie value
+      if (lastIndex === -1) {
+        userId = cookie.substring(firstIndex);
+      } else {
+        userId = cookie.substring(firstIndex, lastIndex);
+      }
+
+      console.log('Current state:', state)
+      // Find user by id and sign him in
+      axios.get(`/api/users/${userId}`)
+        .then((response) => {
+          setCurrentUser(response.data);
+        })
+    }
   }
 
   const profileRoute = () => {
