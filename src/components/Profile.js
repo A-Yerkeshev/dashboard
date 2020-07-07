@@ -149,6 +149,11 @@ function Profile(props) {
       event.preventDefault();
     }
 
+    setState({
+      ...state,
+      headline: user.headline
+    })
+
     $('.prof-info').css('grid-template-areas', `
       'username username'
       'headline headline'
@@ -159,6 +164,7 @@ function Profile(props) {
     $('.headline-form').css('display', 'none');
     $('.prof-info > .headline-change').show();
     $('.prof-info > h3').show();
+
   }
 
   const headlineButton = () => {
